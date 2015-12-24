@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <opencv2/opencv.hpp>
+#import <opencv2/videoio/cap_ios.h>
+@interface ViewController : UIViewController<CvVideoCameraDelegate>
 
-@interface ViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
+- (IBAction)startProcessing:(UIButton *)sender;
 
 @end
 
