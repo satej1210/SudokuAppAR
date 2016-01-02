@@ -3,7 +3,10 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -24,34 +27,74 @@
                                     <constraint firstAttribute="width" secondItem="4N0-8J-R5L" secondAttribute="height" multiplier="480:640" id="yfs-q2-hnr"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eY7-zj-Q43">
-                                <rect key="frame" x="190" y="560" width="34" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eY7-zj-Q43">
+                                <rect key="frame" x="380" y="706" width="34" height="30"/>
                                 <state key="normal" title="Start"/>
                                 <connections>
                                     <action selector="startProcessing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lOa-MF-Q8n"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lf-b1-02j">
+                                <rect key="frame" x="275" y="710" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S0n-kP-voN">
+                                <rect key="frame" x="0.0" y="549" width="187" height="187"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="S0n-kP-voN" secondAttribute="height" multiplier="1:1" id="e77-nx-gU0"/>
+                                    <constraint firstAttribute="width" constant="187" id="sCB-F3-rbP"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="sCB-F3-rbP"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2p-HV-vAw">
+                                <rect key="frame" x="372" y="560" width="38" height="30"/>
+                                <state key="normal" title="Solve"/>
+                                <connections>
+                                    <action selector="solve:" destination="BYZ-38-t0r" eventType="touchUpInside" id="03P-K2-vO8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="4N0-8J-R5L" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="I2V-eL-bN9"/>
-                            <constraint firstAttribute="bottom" secondItem="4N0-8J-R5L" secondAttribute="bottom" id="PlA-rw-3a3"/>
-                            <constraint firstAttribute="trailing" secondItem="4N0-8J-R5L" secondAttribute="trailing" id="pPt-y4-rwY"/>
-                            <constraint firstItem="4N0-8J-R5L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="soW-82-B6u"/>
+                            <constraint firstItem="S0n-kP-voN" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="6gQ-WQ-7tm"/>
+                            <constraint firstItem="S0n-kP-voN" firstAttribute="bottom" secondItem="eY7-zj-Q43" secondAttribute="bottom" id="H1O-8D-0Qq"/>
+                            <constraint firstItem="7lf-b1-02j" firstAttribute="baseline" secondItem="eY7-zj-Q43" secondAttribute="firstBaseline" id="Lya-4b-PPX"/>
+                            <constraint firstItem="4N0-8J-R5L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ojg-g8-S66"/>
+                            <constraint firstItem="7lf-b1-02j" firstAttribute="centerY" secondItem="eY7-zj-Q43" secondAttribute="centerY" id="TEs-z0-bm3"/>
+                            <constraint firstItem="7lf-b1-02j" firstAttribute="baseline" secondItem="eY7-zj-Q43" secondAttribute="baseline" id="ZHF-2b-XNg"/>
+                            <constraint firstItem="S0n-kP-voN" firstAttribute="leading" secondItem="4N0-8J-R5L" secondAttribute="leading" id="c7N-Ql-Ben"/>
+                            <constraint firstAttribute="trailing" secondItem="7lf-b1-02j" secondAttribute="trailing" id="cfO-pA-Pyv"/>
+                            <constraint firstItem="S0n-kP-voN" firstAttribute="baseline" secondItem="7lf-b1-02j" secondAttribute="topMargin" id="eP8-0e-rc1"/>
+                            <constraint firstItem="eY7-zj-Q43" firstAttribute="leading" secondItem="7lf-b1-02j" secondAttribute="trailing" constant="63" id="gNi-fL-uAh"/>
+                            <constraint firstAttribute="trailing" secondItem="eY7-zj-Q43" secondAttribute="trailing" id="jtB-lo-4ZS"/>
+                            <constraint firstItem="4N0-8J-R5L" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="kiF-Z7-FES"/>
+                            <constraint firstItem="S0n-kP-voN" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="529" id="ol9-bI-9oX"/>
+                            <constraint firstAttribute="trailing" secondItem="4N0-8J-R5L" secondAttribute="trailing" id="qSE-dp-Muq"/>
+                            <constraint firstItem="7lf-b1-02j" firstAttribute="leading" secondItem="S0n-kP-voN" secondAttribute="trailing" constant="88" id="ual-qp-3n9"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="PlA-rw-3a3"/>
+                                <exclude reference="eP8-0e-rc1"/>
+                                <exclude reference="cfO-pA-Pyv"/>
                             </mask>
                         </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="detectedGrid" destination="S0n-kP-voN" id="XH6-ks-5FM"/>
                         <outlet property="imageView" destination="4N0-8J-R5L" id="9ty-uh-boN"/>
+                        <outlet property="lab" destination="7lf-b1-02j" id="c13-ys-vN3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="139" y="292"/>
         </scene>
     </scenes>
 </document>
