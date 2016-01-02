@@ -13,7 +13,7 @@
 //cv::Mat to UIImage
 + (UIImage *)imageWithCVMat:(const cv::Mat&)cvMat;
 - (id)initWithCVMat:(const cv::Mat&)cvMat;
-
+cv::Mat cvMatFromUIImage(UIImage *image);
 //UIImage to cv::Mat
 - (cv::Mat)CVMat;
 - (cv::Mat)CVMat3;  // no alpha channel

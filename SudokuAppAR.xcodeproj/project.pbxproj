@@ -12,6 +12,8 @@
 		34266F1A1C35D4F5002A3609 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34266F191C35D4F5002A3609 /* CoreImage.framework */; };
 		34266F1C1C35D505002A3609 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34266F1B1C35D505002A3609 /* CoreText.framework */; };
 		34266F1E1C35D5DE002A3609 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34266F1D1C35D5DE002A3609 /* TesseractOCR.framework */; };
+		3443CBE51C37B42900B1A8A8 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3443CBE41C37B42900B1A8A8 /* TPKeyboardAvoidingScrollView.m */; };
+		3443CBE81C37B67E00B1A8A8 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3443CBE71C37B67E00B1A8A8 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		346284041C34A74500729C4E /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 346284031C34A74500729C4E /* UIImage+OpenCV.mm */; };
 		346284061C34AA3C00729C4E /* testimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 346284051C34AA3C00729C4E /* testimage.jpg */; };
 		3477F3B81C2CB07C000E7EDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3477F3B71C2CB07C000E7EDC /* main.m */; };
@@ -29,6 +31,7 @@
 		3477F3DB1C2CB4FF000E7EDC /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3477F3DA1C2CB4FF000E7EDC /* CoreMedia.framework */; };
 		3477F3DD1C2CB51F000E7EDC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3477F3DC1C2CB51F000E7EDC /* AssetsLibrary.framework */; };
 		3479C5B61C34B0450023D230 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3479C5B51C34B0450023D230 /* Accelerate.framework */; };
+		34CA3CC41C37D8D60084AAB4 /* SudokuSolver.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CA3CC31C37D8D60084AAB4 /* SudokuSolver.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,10 @@
 		34266F191C35D4F5002A3609 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		34266F1B1C35D505002A3609 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		34266F1D1C35D5DE002A3609 /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
+		3443CBE31C37B42900B1A8A8 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		3443CBE41C37B42900B1A8A8 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		3443CBE61C37B67E00B1A8A8 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		3443CBE71C37B67E00B1A8A8 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		346284021C34A74500729C4E /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		346284031C34A74500729C4E /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		346284051C34AA3C00729C4E /* testimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testimage.jpg; sourceTree = "<group>"; };
@@ -59,6 +66,8 @@
 		3477F3DA1C2CB4FF000E7EDC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3477F3DC1C2CB51F000E7EDC /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		3479C5B51C34B0450023D230 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		34CA3CC21C37D8D60084AAB4 /* SudokuSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SudokuSolver.h; sourceTree = "<group>"; };
+		34CA3CC31C37D8D60084AAB4 /* SudokuSolver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SudokuSolver.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +126,14 @@
 			children = (
 				3477F3B91C2CB07C000E7EDC /* AppDelegate.h */,
 				3477F3BA1C2CB07C000E7EDC /* AppDelegate.mm */,
+				3443CBE31C37B42900B1A8A8 /* TPKeyboardAvoidingScrollView.h */,
+				3443CBE61C37B67E00B1A8A8 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				3443CBE71C37B67E00B1A8A8 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+				3443CBE41C37B42900B1A8A8 /* TPKeyboardAvoidingScrollView.m */,
 				34266F1D1C35D5DE002A3609 /* TesseractOCR.framework */,
 				346284021C34A74500729C4E /* UIImage+OpenCV.h */,
+				34CA3CC21C37D8D60084AAB4 /* SudokuSolver.h */,
+				34CA3CC31C37D8D60084AAB4 /* SudokuSolver.mm */,
 				346284031C34A74500729C4E /* UIImage+OpenCV.mm */,
 				3477F3BC1C2CB07C000E7EDC /* ViewController.h */,
 				3477F3BD1C2CB07C000E7EDC /* ViewController.mm */,
@@ -217,6 +232,9 @@
 				3477F3BE1C2CB07C000E7EDC /* ViewController.mm in Sources */,
 				3477F3BB1C2CB07C000E7EDC /* AppDelegate.mm in Sources */,
 				3477F3B81C2CB07C000E7EDC /* main.m in Sources */,
+				3443CBE81C37B67E00B1A8A8 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				3443CBE51C37B42900B1A8A8 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				34CA3CC41C37D8D60084AAB4 /* SudokuSolver.mm in Sources */,
 				3477F3C41C2CB07C000E7EDC /* SudokuAppAR.xcdatamodeld in Sources */,
 				346284041C34A74500729C4E /* UIImage+OpenCV.mm in Sources */,
 			);
@@ -333,6 +351,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SudokuAppAR",
 				);
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = SudokuAppAR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -341,6 +360,7 @@
 					"$(PROJECT_DIR)/SudokuAppAR/tesseract-ios/tesseract-ios-lib/lib",
 					"$(PROJECT_DIR)/SudokuAppAR/tesseract-ios-lib/lib",
 				);
+				OTHER_LDFLAGS = "-fno-stack-protector";
 				PRODUCT_BUNDLE_IDENTIFIER = satejmhatre.SudokuAppAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -355,6 +375,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SudokuAppAR",
 				);
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = SudokuAppAR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -363,6 +384,7 @@
 					"$(PROJECT_DIR)/SudokuAppAR/tesseract-ios/tesseract-ios-lib/lib",
 					"$(PROJECT_DIR)/SudokuAppAR/tesseract-ios-lib/lib",
 				);
+				OTHER_LDFLAGS = "-fno-stack-protector";
 				PRODUCT_BUNDLE_IDENTIFIER = satejmhatre.SudokuAppAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
