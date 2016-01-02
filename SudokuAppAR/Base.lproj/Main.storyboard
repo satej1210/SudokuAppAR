@@ -47,7 +47,7 @@
                                             <action selector="startProcessing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lOa-MF-Q8n"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="219" translatesAutoresizingMaskIntoConstraints="NO" id="7lf-b1-02j">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press Start" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="219" translatesAutoresizingMaskIntoConstraints="NO" id="7lf-b1-02j">
                                         <rect key="frame" x="177" y="639" width="99" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="Q0L-B0-Pz0"/>
@@ -186,6 +186,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="Solved" destination="E83-Ap-XbZ" id="1aw-aF-16K"/>
+                        <outlet property="StartButton" destination="eY7-zj-Q43" id="0iu-CE-BKo"/>
                         <outlet property="detectedGrid" destination="S0n-kP-voN" id="XH6-ks-5FM"/>
                         <outlet property="imageView" destination="4N0-8J-R5L" id="9ty-uh-boN"/>
                         <outlet property="lab" destination="7lf-b1-02j" id="c13-ys-vN3"/>

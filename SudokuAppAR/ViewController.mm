@@ -22,7 +22,7 @@ using namespace std;
 
 @implementation ViewController
 
-@synthesize imageView, videoCamera, detectedGrid, lab, textField, Solved;
+@synthesize imageView, videoCamera, detectedGrid, lab, textField, Solved, StartButton;
 int frames = 0;
 int tolerance = 2;
 int toleranceC=0;
@@ -30,6 +30,8 @@ int SampleCount=0;
 float Samples = 5;
 float confidence = 0;
 int isSolved = 0;
+int DetectedFrames = 100;
+int DetectedFrameCount=0;
 
 bool compareYX(const cv::Point& left, const cv::Point& right) {
     return (left.y < right.y) || ((left.y == right.y) && (left.x < right.x));
@@ -250,108 +252,14 @@ int mode (int x[],int n)
     if(cen.size()==16)
         
     {
-        if (cen[0].x > 15-tolerance && cen[0].x < 15+tolerance && cen[0].y > 37-tolerance && cen[0].y < 37+tolerance
-            //&& cen[3].x > 264-tolerance && cen[03].x < 264+tolerance && cen[03].y > 37-tolerance && cen[03].y < 37+tolerance
-            //&& cen[012].x > 15-tolerance && cen[012].x < 15+tolerance && cen[012].y > 286-tolerance && cen[012].y < 286+tolerance
-            //&& cen[015].x > 264-tolerance && cen[015].x < 264+tolerance && cen[015].y > 286-tolerance && cen[015].y < 286+tolerance
-            ) {
-            
-            for(int i=0; i<10; ++i)
-            {
-                for (int j = 0; j < 10; ++j) {
-                    arrangedPoints.push_back(cv::Point(15+j*27.67,37+i*27.67));
-                    if (!isSolved) {
-                        circle(img, cv::Point(15+j*27.67,37+i*27.67), 4, Scalar(255,255,0), -1);
-                    }
-                    
-                    
-                }
+        for(int i=0; i<10; ++i)
+        {
+            for (int j = 0; j < 10; ++j) {
+                arrangedPoints.push_back(cv::Point(15+j*27.67,37+i*27.67));
             }
-            
-           
-            
-            if(!isSolved){
-                
-//                for(int i=0; i<AllArrangedPoints.size(); ++i)
-//                {
-//                    a.operator=(i+65);
-//                    putText(img, a, AllArrangedPoints[i], FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
-//                    circle(img, AllArrangedPoints[i], 2, Scalar(255,0,0), -1);
-//                    
-//                }
-                image = img;
-                G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
-                cv::Mat tmp;
-                cv::GaussianBlur(org, tmp, cv::Size(5,5), 5);
-                cv::addWeighted(org, 1.5, tmp, -0.5, 0, org);
-                
-                tesseract.charWhitelist = @"0123456789";
-                [tesseract setImage:[[UIImage imageWithCVMat:[self NormalizeImage:org]] g8_blackAndWhite]];
-                
-                for(int i=0; i < 90; ++i)
-                {
-                    
-                    
-                    tesseract.rect = CGRectMake(CGFloat(arrangedPoints[i].x+7), CGFloat(arrangedPoints[i].y+5), 13.67, 20.67);
-                    [tesseract recognize];
-                    a1 = [tesseract recognizedText];
-                    a1 = [a1 stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                    a1 = [a1 stringByReplacingOccurrencesOfString:@" " withString:@""];
-                    if ((i+1)%10==0 && i!=0 && i!=90) {
-                        puzzle=[puzzle stringByAppendingString:@""];
-                        
-                        continue;
-                    }
-                    if ([a1 length]==0) {
-                        puzzle=[puzzle stringByAppendingString:@"0"];
-                    }
-                    else puzzle=[puzzle stringByAppendingString:[a1 substringWithRange:NSMakeRange(0, 1)]];
-                    
-                    
-                    
-                }
-                
-                if (SampleCount == Samples) {
-                    SampleCount = 0;
-                    puzzle = [self bestGuessCalc];
-                    NSString *newPuzzleWithBreaks=@"";
-                    for(int i=0; i<81; ++i)
-                    {
-                        newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:[puzzle substringWithRange:NSMakeRange(i, 1) ]];
-                        if ((i+1)%9==0&&i!=0) {
-                            newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:@"\n"];
-                        }
-                        
-                    }
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [self.textField setText:newPuzzleWithBreaks];
-                        [self.lab setText:[NSString stringWithFormat:@"Confidence:%.2f", (float)(confidence / (Samples*81) * 100)]];
-                        confidence = 0;
-                    });
-                }
-                else {
-                    SampleCount++;
-                    SampleDigits.push_back(puzzle);
-                    
-                }
-                
-                
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [self.detectedGrid setImage:[UIImage imageWithCGImage:CGImageCreateWithImageInRect([[UIImage imageWithCVMat:org] CGImage], CGRectMake(CGFloat(arrangedPoints[53].x+7), CGFloat(arrangedPoints[53].y+5), 13.67, 20.67)) ]];
-                    
-                    
-                });
-                
-                
-                
-                
-                
-            }
-            else
-            {
+        }
+        if (isSolved) {
+            if (DetectedFrameCount < DetectedFrames) {
                 NSString *completedPuz = [NSString stringWithCString:getStringCompleted() encoding:NSASCIIStringEncoding];
                 NSString *puz = [[textField text] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
                 int lol=0;
@@ -361,33 +269,146 @@ int mode (int x[],int n)
                         lol++;
                     }
                     if (![[puz substringWithRange:NSMakeRange(i, 1)]isEqualToString:[completedPuz substringWithRange:NSMakeRange(i, 1)]]) {
-                       
                         
-                        putText(img, [[completedPuz substringWithRange:NSMakeRange(i, 1)] UTF8String] , cv::Point(arrangedPoints[i+lol].x+10, arrangedPoints[i+lol].y+20), FONT_HERSHEY_DUPLEX, 1, Scalar(0,0,255));
+                        
+                        putText(img, [[completedPuz substringWithRange:NSMakeRange(i, 1)] UTF8String] , cv::Point(arrangedPoints[i+lol].x+10, arrangedPoints[i+lol].y+20), FONT_HERSHEY_DUPLEX, 0.5, Scalar(0,0,255));
                         
                     }
                     
                 }
-            
+                DetectedFrameCount++;
             }
+            else DetectedFrameCount = 0;
         }
         else
         {
-            a="Put Top Left Corner Here";
-            putText(img, a, cv::Point(15,37), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
-            circle(img, cv::Point(15,37), 4, Scalar(255,255,0), -1);
+            if (cen[0].x > 15-tolerance && cen[0].x < 15+tolerance && cen[0].y > 37-tolerance && cen[0].y < 37+tolerance
+                //&& cen[3].x > 264-tolerance && cen[03].x < 264+tolerance && cen[03].y > 37-tolerance && cen[03].y < 37+tolerance
+                //&& cen[012].x > 15-tolerance && cen[012].x < 15+tolerance && cen[012].y > 286-tolerance && cen[012].y < 286+tolerance
+                //&& cen[015].x > 264-tolerance && cen[015].x < 264+tolerance && cen[015].y > 286-tolerance && cen[015].y < 286+tolerance
+                ) {
+                
+                for(int i=0; i<10; ++i)
+                {
+                    for (int j = 0; j < 10; ++j) {
+
+                            circle(img, cv::Point(15+j*27.67,37+i*27.67), 4, Scalar(255,255,0), -1);
+                        
+                        
+                        
+                    }
+                }
+                
+                
+                
+                if(!isSolved){
+                    
+                    //                for(int i=0; i<AllArrangedPoints.size(); ++i)
+                    //                {
+                    //                    a.operator=(i+65);
+                    //                    putText(img, a, AllArrangedPoints[i], FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
+                    //                    circle(img, AllArrangedPoints[i], 2, Scalar(255,0,0), -1);
+                    //
+                    //                }
+                    image = img;
+                    G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
+                    cv::Mat tmp;
+                    cv::GaussianBlur(org, tmp, cv::Size(5,5), 5);
+                    cv::addWeighted(org, 1.5, tmp, -0.5, 0, org);
+                    
+                    tesseract.charWhitelist = @"0123456789";
+                    [tesseract setImage:[[UIImage imageWithCVMat:[self NormalizeImage:org]] g8_blackAndWhite]];
+                    
+                    for(int i=0; i < 90; ++i)
+                    {
+                        
+                        
+                        tesseract.rect = CGRectMake(CGFloat(arrangedPoints[i].x+7), CGFloat(arrangedPoints[i].y+5), 13.67, 20.67);
+                        [tesseract recognize];
+                        a1 = [tesseract recognizedText];
+                        a1 = [a1 stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                        a1 = [a1 stringByReplacingOccurrencesOfString:@" " withString:@""];
+                        if ((i+1)%10==0 && i!=0 && i!=90) {
+                            puzzle=[puzzle stringByAppendingString:@""];
+                            
+                            continue;
+                        }
+                        if ([a1 length]==0) {
+                            puzzle=[puzzle stringByAppendingString:@"0"];
+                        }
+                        else puzzle=[puzzle stringByAppendingString:[a1 substringWithRange:NSMakeRange(0, 1)]];
+                        
+                        
+                        
+                    }
+                    
+                    if (SampleCount == Samples) {
+                        SampleCount = 0;
+                        puzzle = [self bestGuessCalc];
+                        NSString *newPuzzleWithBreaks=@"";
+                        for(int i=0; i<81; ++i)
+                        {
+                            newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:[puzzle substringWithRange:NSMakeRange(i, 1) ]];
+                            if ((i+1)%9==0&&i!=0) {
+                                newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:@"\n"];
+                            }
+                            
+                        }
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                            [self.textField setText:newPuzzleWithBreaks];
+                            [self.lab setText:[NSString stringWithFormat:@"Confidence:%.2f", (float)(confidence / (Samples*81) * 100)]];
+                            if ((float)(confidence / (Samples*81) * 100) > 98) {
+                                [self solve:NULL];
+                            }
+                            confidence = 0;
+                        });
+                    }
+                    else {
+                        SampleCount++;
+                        SampleDigits.push_back(puzzle);
+                        
+                    }
+                    
+                    
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [self.detectedGrid setImage:[UIImage imageWithCGImage:CGImageCreateWithImageInRect([[UIImage imageWithCVMat:org] CGImage], CGRectMake(CGFloat(arrangedPoints[53].x+7), CGFloat(arrangedPoints[53].y+5), 13.67, 20.67)) ]];
+                        
+                        
+                    });
+                    
+                    
+                    
+                    
+                    
+                }
+                else
+                {
+                    
+                    
+                }
+            }
             
-            a = "Put Corner Here";
-            putText(img, a, cv::Point(150,67), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
-            circle(img, cv::Point(264,37), 4, Scalar(255,255,0), -1);
-            
-            a = "Blah";
-            putText(img, a, cv::Point(15,310), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
-            circle(img, cv::Point(15,286), 4, Scalar(255,255,0), -1);
-            
-            a="And Bottom Right Corner Here";
-            putText(img, a, cv::Point(25,264), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
-            circle(img, cv::Point(264,286), 4, Scalar(255,255,0), -1);
+            else
+            {
+                a="Put Top Left Corner Here";
+                putText(img, a, cv::Point(15,37), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
+                circle(img, cv::Point(15,37), 4, Scalar(255,255,0), -1);
+                
+                a = "Put Corner Here";
+                putText(img, a, cv::Point(150,67), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
+                circle(img, cv::Point(264,37), 4, Scalar(255,255,0), -1);
+                
+                a = "Blah";
+                putText(img, a, cv::Point(15,310), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
+                circle(img, cv::Point(15,286), 4, Scalar(255,255,0), -1);
+                
+                a="And Bottom Right Corner Here";
+                putText(img, a, cv::Point(25,264), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
+                circle(img, cv::Point(264,286), 4, Scalar(255,255,0), -1);
+            }
         }
     }
     else
@@ -425,21 +446,38 @@ int mode (int x[],int n)
     [super didReceiveMemoryWarning];
     
 }
-
-- (IBAction)startProcessing:(UIButton *)sender {
+bool Reset=NO;
+- (IBAction)startProcessing:(id)sender {
     [self.videoCamera stop];
+   
     
+    if (!Reset) {
+        [sender setTitle:@"Reset" forState:UIControlStateNormal];
+        Reset = YES;
+    }
+    else
+    {
+        [sender setTitle:@"Start" forState:UIControlStateNormal];
+        Reset = NO;
+    }
     [self.videoCamera start];
     
     
-     frames = 0;
-     tolerance = 2;
-     toleranceC=0;
-     SampleCount=0;
-     Samples = 5;
-     confidence = 0;
-     isSolved = 0;
+    frames = 0;
+    tolerance = 2;
+    toleranceC=0;
+    SampleCount=0;
+    Samples = 5;
+    confidence = 0;
+    SampleDigits.clear();
+    if(isSolved==1)
+    {
+        [lab setText:@"Puzzle Reset"];
+        isSolved = 0;
+        [textField setText:@""];
+    }
     
+    DetectedFrameCount = 0;
 }
 
 
@@ -453,10 +491,6 @@ int mode (int x[],int n)
 {
     const char *puz = [[[textField text] stringByReplacingOccurrencesOfString:@"\n" withString:@""] UTF8String];
     GetPuz(puz);
-    [sender setEnabled:false];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-       [sender setEnabled:true];
-    });
     @try {
         isSolved = theMain();
     }

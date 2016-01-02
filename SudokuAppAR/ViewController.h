@@ -19,6 +19,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *lab;
 
 @property (weak, nonatomic) IBOutlet UIButton* Solved;
+@property (weak, nonatomic) IBOutlet UIButton *StartButton;
 
 - (IBAction)startProcessing:(UIButton *)sender;
 - (IBAction)solve:(id)sender;
