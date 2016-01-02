@@ -324,7 +324,7 @@ public:
     
     void static all()
     {
-        try{
+        
         cf(nakedpairrow);
         cf(nakedpaircolumn);
         cf2(nakedpairbox);
@@ -333,7 +333,7 @@ public:
         cf(nakedtriplecolumn);
         cf(nakedquadrow);
         cf(nakedquadcolumn);
-        } catch(...) { /* */ }
+        
         //        cf2(nakedtriplebox);
         //        cf2(nakedquadbox);
     }
@@ -342,7 +342,6 @@ public:
 
 void naked::nakedquadrow(int RowNumber)
 {
-    
     for(int Number1=1; Number1<=9; Number1++)
     {
         for(int Number2=Number1+1; Number2<=9; Number2++)
@@ -474,7 +473,7 @@ void naked::nakedquadcolumn(int ColumnNumber)
 
 
 void naked::nakedtriplerow(int RowNumber)
-{  try{
+{
     for(int Number1=1; Number1<=9; Number1++)
     {
         for(int Number2=Number1+1; Number2<=9; Number2++)
@@ -529,72 +528,66 @@ void naked::nakedtriplerow(int RowNumber)
             }
         }
     }
-}catch(...){cout << "asdaD";}
     
 }
 
 void naked::nakedtriplecolumn(int ColumnNumber)
 {
-    try {
-        for(int Number1=1; Number1<=9; Number1++)
+    for(int Number1=1; Number1<=9; Number1++)
+    {
+        for(int Number2=Number1+1; Number2<=9; Number2++)
         {
-            for(int Number2=Number1+1; Number2<=9; Number2++)
+            for(int Number3=Number2+1; Number3<=9; Number3++)
             {
-                for(int Number3=Number2+1; Number3<=9; Number3++)
+                int outerflag = 0;
+                int store[3] = {-1,-1, -1};
+                int index = 0;
+                
+                for(int i=0; i<9; i++)
                 {
-                    int outerflag = 0;
-                    int store[3] = {-1,-1, -1};
-                    int index = 0;
+                    int FalseNum = 0;
+                    int TrueNum= 0;
+                    
+                    if(sudoku[i][ColumnNumber-1].possibilities[Number1-1] || sudoku[i][ColumnNumber-1].possibilities[Number2-1] || sudoku[i][ColumnNumber-1].possibilities[Number3-1])
+                    {
+                        if(sudoku[i][ColumnNumber-1].possibilities[Number1-1])
+                            TrueNum++;
+                        if(sudoku[i][ColumnNumber-1].possibilities[Number2-1])
+                            TrueNum++;
+                        if(sudoku[i][ColumnNumber-1].possibilities[Number3-1])
+                            TrueNum++;
+                        
+                        
+                        for(int x=1; x<=9; x++)
+                        {
+                            if(!(sudoku[i][ColumnNumber-1].possibilities[x-1]))
+                                FalseNum++;
+                        }
+                        if(FalseNum==(9-TrueNum))
+                        {
+                            outerflag++;
+                            store[index] = i;
+                            index++;
+                        }
+                    }
+                }
+                if(outerflag==3)
+                {
+                    cout<<"\nnaked triple column found at"<<ColumnNumber;
                     
                     for(int i=0; i<9; i++)
                     {
-                        int FalseNum = 0;
-                        int TrueNum= 0;
-                        
-                        if(sudoku[i][ColumnNumber-1].possibilities[Number1-1] || sudoku[i][ColumnNumber-1].possibilities[Number2-1] || sudoku[i][ColumnNumber-1].possibilities[Number3-1])
+                        if(i!=store[0] && i!=store[1] && i!=store[2])
                         {
-                            if(sudoku[i][ColumnNumber-1].possibilities[Number1-1])
-                                TrueNum++;
-                            if(sudoku[i][ColumnNumber-1].possibilities[Number2-1])
-                                TrueNum++;
-                            if(sudoku[i][ColumnNumber-1].possibilities[Number3-1])
-                                TrueNum++;
-                            
-                            
-                            for(int x=1; x<=9; x++)
-                            {
-                                if(!(sudoku[i][ColumnNumber-1].possibilities[x-1]))
-                                    FalseNum++;
-                            }
-                            if(FalseNum==(9-TrueNum))
-                            {
-                                outerflag++;
-                                store[index] = i;
-                                index++;
-                            }
-                        }
-                    }
-                    if(outerflag==3)
-                    {
-                        cout<<"\nnaked triple column found at"<<ColumnNumber;
-                        
-                        for(int i=0; i<9; i++)
-                        {
-                            if(i!=store[0] && i!=store[1] && i!=store[2])
-                            {
-                                sudoku[i][ColumnNumber-1].possibilities[Number1-1]=false;
-                                sudoku[i][ColumnNumber-1].possibilities[Number2-1]=false;
-                                sudoku[i][ColumnNumber-1].possibilities[Number3-1]=false;
-                            }
+                            sudoku[i][ColumnNumber-1].possibilities[Number1-1]=false;
+                            sudoku[i][ColumnNumber-1].possibilities[Number2-1]=false;
+                            sudoku[i][ColumnNumber-1].possibilities[Number3-1]=false;
                         }
                     }
                 }
             }
         }
-    } catch (...) {
-        cout << "cout";
     }
-    
     
 }
 
