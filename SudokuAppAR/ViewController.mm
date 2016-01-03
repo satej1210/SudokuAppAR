@@ -145,17 +145,11 @@ int mode (int x[],int n)
 
 - (void)processImage:(Mat&)image
 {
-    Mat img = image, thr, mask , kerx, kery, dx, dy, ret, close, closex, closey;
-    
+    Mat img = image,  org = image.clone(), thr, mask = [self MaskContour: img], kerx, kery, dx, dy, ret, close, closex, closey;
     cv::Rect rec;
-    
-    Mat org = img.clone();
-    
-    
     cv::String a;
     vector<cv::Point> arrangedPoints, AllArrangedPoints, cen;
-    resize(img, img, cv::Size(320,240));
-    mask = [self MaskContour: img];
+    
     GaussianBlur(img, img, cv::Size(3,3), 0);
     Mat res = [self NormalizeImage:img];
     
@@ -200,7 +194,7 @@ int mode (int x[],int n)
     for(int i=0; i<contours.size(); ++i)
     {
         rec = boundingRect(contours[i]);
-        if (rec.height/rec.width > 3 && rec.area() > 300) {
+        if (rec.height/rec.width > 3) {
             drawContours(close, contours, i, Scalar(255,255,255), -1);
         }
         else{
@@ -209,15 +203,10 @@ int mode (int x[],int n)
     }
     
     
-    morphologyEx(close, close, MORPH_OPEN, NULL, cv::Point(-1,-1), 2);
-    //GaussianBlur(close, close, cv::Size(7,7), 0);
-    normalize(close, close, 0,255, NORM_MINMAX);
-    cv::Mat temp1;
-    GaussianBlur(close, temp1, cv::Size(7,7), 0);
-    cv::addWeighted(close, 1.5, temp1, -0.5, 0, close);
-    morphologyEx(close, close, MORPH_CLOSE, NULL, cv::Point(-1,-1), 4);
-    close.copyTo(closex);
+    morphologyEx(close, close, MORPH_DILATE, NULL, cv::Point(-1,-1), 2);
     
+    
+    close.copyTo(closex);
     kery=getStructuringElement(MORPH_RECT, cv::Size(10,2));
     Sobel(res, dy, CV_16S, 0, 2);
     convertScaleAbs(dy, dy);
@@ -230,19 +219,14 @@ int mode (int x[],int n)
     for(int i=0; i<contours.size(); ++i)
     {
         rec = boundingRect(contours[i]);
-        if (rec.width/rec.height > 3 && rec.area() > 100) {
+        if (rec.width/rec.height > 3) {
             drawContours(close, contours, i,Scalar(255,255,255),-1);
         }
         else{
             drawContours(close, contours, i, 0, -1);
         }
     }
-    morphologyEx(close, close, MORPH_OPEN, NULL, cv::Point(-1,-1), 2);
-    //GaussianBlur(close, close, cv::Size(7,7), 0);
-    normalize(close, close, 0,255, NORM_MINMAX);
-    GaussianBlur(close, temp1, cv::Size(7,7), 0);
-    cv::addWeighted(close, 1.5, temp1, -0.5, 0, close);
-    morphologyEx(close, close, MORPH_CLOSE, NULL, cv::Point(-1,-1), 4);
+    morphologyEx(close, close, MORPH_CLOSE, NULL, cv::Point(-1,-1), 2);
     close.copyTo(closey);
     bitwise_and(closex,closey, res);
     morphologyEx(res, res, MORPH_OPEN
@@ -255,17 +239,15 @@ int mode (int x[],int n)
     for (int i=0; i<contours.size(); ++i) {
         {  cv::Moments m = moments(contours[i]);
             cv::Point P = cv::Point(int(m.m10/m.m00), int(m.m01/m.m00));
-            circle(org, cv::Point(P.x*2, P.y*2), 4, Scalar(255,255,0), -1);
             cen.push_back(P);
         }
     }
-    morphologyEx(res, res, MORPH_OPEN, NULL, cv::Point(-1,-1), 4);
-    image = org
-    ;
-    //image ;
+    
+    
+    
     std::sort(cen.begin(), cen.end(), compareYX);
-    if(cen.size()>0)
-    cout << cen[0].x << " " << cen[0].y <<endl;
+    
+    
     
     
     NSString* a1, *puzzle=@"";
@@ -311,8 +293,8 @@ int mode (int x[],int n)
                 for(int i=0; i<10; ++i)
                 {
                     for (int j = 0; j < 10; ++j) {
-
-                            circle(img, cv::Point(15+j*27.67,37+i*27.67), 4, Scalar(255,255,0), -1);
+                        
+                        circle(img, cv::Point(15+j*27.67,37+i*27.67), 4, Scalar(255,255,0), -1);
                         
                         
                         
@@ -378,7 +360,7 @@ int mode (int x[],int n)
                             
                             [self.textField setText:newPuzzleWithBreaks];
                             [self.lab setText:[NSString stringWithFormat:@"Confidence:%.2f", (float)(confidence / (Samples*81) * 100)]];
-                            if ((float)(confidence / (Samples*81) * 100) > 97) {
+                            if ((float)(confidence / (Samples*81) * 100) > 98) {
                                 [self solve:NULL];
                             }
                             confidence = 0;
@@ -447,7 +429,6 @@ int mode (int x[],int n)
     arrangedPoints.clear();
     
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     //    const char *puz = "390002006050086000200000003030700000001060800000001090400000007000430050800600032";//[[[textField text] stringByReplacingOccurrencesOfString:@"\n" withString:@""] UTF8String];
@@ -457,7 +438,7 @@ int mode (int x[],int n)
     self.videoCamera = [[CvVideoCamera alloc] initWithParentView:imageView];
     
     self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
-    self.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset1920x1080;
+    self.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset352x288;
     self.videoCamera.defaultAVCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
     self.videoCamera.defaultFPS = 30;
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
