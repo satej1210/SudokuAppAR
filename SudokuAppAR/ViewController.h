@@ -17,10 +17,12 @@
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, strong, retain) IBOutlet UIImageView *detectedGrid;
 @property (nonatomic, strong) IBOutlet UILabel *lab;
+- (IBAction)ToggleDrawer:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton* Solved;
 @property (weak, nonatomic) IBOutlet UIButton *StartButton;
 
+@property (weak, nonatomic) IBOutlet UIView *ContainerView;
 - (IBAction)startProcessing:(UIButton *)sender;
 - (IBAction)solve:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextView *textField;
