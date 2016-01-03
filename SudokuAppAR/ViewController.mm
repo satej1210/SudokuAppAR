@@ -22,7 +22,9 @@ using namespace std;
 
 @implementation ViewController
 
-@synthesize imageView, videoCamera, detectedGrid, lab, textField, Solved, ContainerView, StartButton;
+
+@synthesize imageView, videoCamera, detectedGrid, lab, textField, Solved, StartButton, ContainerView;
+
 int frames = 0;
 int tolerance = 2;
 int toleranceC=0;
@@ -460,11 +462,9 @@ int mode (int x[],int n)
     self.videoCamera.defaultFPS = 30;
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     self.videoCamera.delegate = self;
-    //[self startProcessing:NULL];
-    //[self addChildViewController:ContainerView];
-    
-    //[self.view addSubview:ContainerView];
-   // self.ContainerView.
+
+    //[self.videoCamera start];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -473,19 +473,39 @@ int mode (int x[],int n)
 }
 bool Reset=NO;
 
+- (IBAction)ToggleView:(UIButton *)sender {
+    
+
+    
+    
+    if (ContainerView.hidden == YES) {
+        [ContainerView setHidden:NO];
+        [UIView animateWithDuration:.5f animations:^{
+            
+            
+            [ContainerView setAlpha:1.0f];
+            
+        } completion:nil];
+    }
+    else
+    {
+        [UIView animateWithDuration:.5f animations:^{
+            
+            [ContainerView setAlpha:0.0f];
+            
+        } completion:^(BOOL finished) {
+            [ContainerView setHidden:YES];
+        }];
+        
+    }
+    
+}
+
 - (IBAction)startProcessing:(id)sender {
     
    
     
-    if (!Reset) {
-        [sender setTitle:@"Reset" forState:UIControlStateNormal];
-        Reset = YES;
-    }
-    else
-    {
-        [sender setTitle:@"Start" forState:UIControlStateNormal];
-        Reset = NO;
-    }
+    
     [self.videoCamera start];
     [self ToggleDrawer:NULL];
     

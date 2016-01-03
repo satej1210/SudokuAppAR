@@ -1033,7 +1033,7 @@ void CheckAllSingles() //checks for any singles and marks them off!
 
 bool* ReturnBoxPossibilities(int x, int i, int j)
 {
-    bool PossibleNumberArray[9];
+    static bool PossibleNumberArray[9];
     int counter=0;
     for(int a=i; a<=i+2; a++)
     {
@@ -1054,7 +1054,7 @@ bool* ReturnBoxPossibilities(int x, int i, int j)
 
 bool* ReturnColPossibilities(int x, int j)
 {
-    bool PossibleNumberArray[9];
+    static bool PossibleNumberArray[9];
     int counter=0;
     for(int b=0; b<9; b++)
     {
@@ -1070,7 +1070,7 @@ bool* ReturnColPossibilities(int x, int j)
 
 bool* ReturnRowPossibilities(int x, int j)
 {
-    bool PossibleNumberArray[9];
+    static bool PossibleNumberArray[9];
     int counter=0;
     for(int b=0; b<9; b++)
     {
@@ -1158,29 +1158,31 @@ int theMain()
     act.sa_flags = 0;
     sigaction(SIGABRT, &act, 0);
     
-    for(int i=0; i<10 && !PuzzleCompleted(); ++i)
-    {
-        
-        AllHiddenSingles();
-        CheckAll();
-        if(PuzzleCompleted()){completed=1;break;}
-        CheckAllSingles();
-        CheckAll();
-        if(PuzzleCompleted()){completed=1;break;}
-        lockedcandidate::both();
-        CheckAll();
-        if(PuzzleCompleted()){completed=1;break;}
-        lockedcandidate::both2();
-        CheckAll();
-        if(PuzzleCompleted()){completed=1;break;}
-      naked::all();
-        
-        
-        CheckAll();
-        if(PuzzleCompleted()){completed=1;break;}
-        
-        
-    }
+        for(int i=0; i<10 && !PuzzleCompleted(); ++i)
+        {
+            
+            AllHiddenSingles();
+            CheckAll();
+            if(PuzzleCompleted()){completed=1;break;}
+            CheckAllSingles();
+            CheckAll();
+            if(PuzzleCompleted()){completed=1;break;}
+            lockedcandidate::both();
+            CheckAll();
+            if(PuzzleCompleted()){completed=1;break;}
+            lockedcandidate::both2();
+            CheckAll();
+            if(PuzzleCompleted()){completed=1;break;}
+            naked::all();
+            
+            
+            CheckAll();
+            if(PuzzleCompleted()){completed=1;break;}
+            
+            
+        }
+    
+    
     
     DrawGrid();
     return completed;
