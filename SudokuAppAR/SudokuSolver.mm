@@ -7,11 +7,8 @@
 //
 
 #include <iostream>
-#include <fstream>
+
 #include <vector>
-#include <csetjmp>
-#include <csignal>
-#include <cstdlib>
 #include "SudokuSolver.h"
 
 
@@ -27,14 +24,8 @@ using namespace std;
  void CheckAll();
  void CheckAllSingles();
  bool* ReturnBoxPossibilities(int x, int i, int j);
- bool* ReturnRowPossibilities(int x, int i);
- bool* ReturnColPossibilities(int, int);*/
-jmp_buf env;
+*/
 
-void on_sigabrt (int signum)
-{
-    longjmp (env, 1);
-}
 
 char completedString[81];
 class cellSudoku
@@ -324,15 +315,15 @@ public:
     
     void static all()
     {
-        
-        cf(nakedpairrow);
-        cf(nakedpaircolumn);
+        for(int i=1; i<=9; i++){nakedpairrow(i);};
+        for(int i=1; i<=9; i++){nakedpaircolumn(i);};
+      
         cf2(nakedpairbox);
-        
-        cf(nakedtriplerow);
-        cf(nakedtriplecolumn);
-        cf(nakedquadrow);
-        cf(nakedquadcolumn);
+        for(int i=1; i<=9; i++){nakedtriplerow(i);};
+        for(int i=1; i<=9; i++){nakedtriplecolumn(i);};
+        for(int i=1; i<=9; i++){nakedquadrow(i);};
+        for(int i=1; i<=9; i++){nakedquadcolumn(i);};
+    
         
         //        cf2(nakedtriplebox);
         //        cf2(nakedquadbox);
@@ -1141,10 +1132,7 @@ char* getStringCompleted()
     return completedString;
 }
 
-void lol(int sig)
-{
-    cout << "caught";
-}
+
 int theMain()
 {
     //DrawGrid();
@@ -1152,11 +1140,7 @@ int theMain()
     CheckAll();
     DrawGrid();
     int completed = 0;
-    struct sigaction act;
-    act.sa_handler = lol;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    sigaction(SIGABRT, &act, 0);
+    
     
         for(int i=0; i<10 && !PuzzleCompleted(); ++i)
         {

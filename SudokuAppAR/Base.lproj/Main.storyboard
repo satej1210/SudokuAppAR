@@ -24,6 +24,7 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4N0-8J-R5L">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="413" id="6Dm-oc-h8f"/>
                                             <constraint firstAttribute="height" id="KYj-UM-Z1P"/>
@@ -41,6 +42,9 @@
                                                 <exclude reference="sll-I0-lhT"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="2rn-0H-1Wt" appends="YES" id="yG7-G3-O64"/>
+                                        </connections>
                                     </imageView>
                                     <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ob3-ji-SyU">
                                         <rect key="frame" x="0.0" y="457" width="375" height="210"/>
@@ -250,6 +254,7 @@
                         <outlet property="ContainerView" destination="ob3-ji-SyU" id="fAz-Ad-1U3"/>
                         <outlet property="Solved" destination="E83-Ap-XbZ" id="1aw-aF-16K"/>
                         <outlet property="StartButton" destination="eY7-zj-Q43" id="0iu-CE-BKo"/>
+                        <outlet property="TapToStart" destination="2rn-0H-1Wt" id="ELY-iu-yO2"/>
                         <outlet property="detectedGrid" destination="S0n-kP-voN" id="XH6-ks-5FM"/>
                         <outlet property="imageView" destination="4N0-8J-R5L" id="9ty-uh-boN"/>
                         <outlet property="lab" destination="7lf-b1-02j" id="c13-ys-vN3"/>
@@ -257,6 +262,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="2rn-0H-1Wt">
+                    <connections>
+                        <action selector="TapToStartVid:" destination="BYZ-38-t0r" id="Mi8-c9-FJu"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="186.5" y="303.5"/>
         </scene>

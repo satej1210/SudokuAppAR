@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *StartButton;
 - (IBAction)ToggleView:(UIButton *)sender;
 
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *TapToStart;
+- (IBAction)TapToStartVid:(UITapGestureRecognizer *)sender;
 
 - (IBAction)startProcessing:(UIButton *)sender;
 - (IBAction)solve:(id)sender;

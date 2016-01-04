@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #include "SudokuSolver.h"
+#define SampleDigitsCount 5
 using namespace cv;
 using namespace std;
 
@@ -29,7 +30,7 @@ int frames = 0;
 int tolerance = 2;
 int toleranceC=0;
 int SampleCount=0;
-float Samples = 5;
+float Samples = SampleDigitsCount;
 float confidence = 0;
 int isSolved = 0;
 int DetectedFrames = 100;
@@ -53,7 +54,7 @@ float distFormula(cv::Point P1, cv::Point P2)
 {
     return Mat::zeros(img.rows, img.cols, CV_8U);;
 }
--(Mat)NormalizeImage: (Mat&)img
+-(Mat)NormalizeImage: (Mat)img
 {
     Mat gray, c, ker, div, res, res2;
     cvtColor(img, gray , CV_BGR2GRAY);
@@ -62,12 +63,12 @@ float distFormula(cv::Point P1, cv::Point P2)
     divide(gray, c, div);
     normalize(div, div, 0,255, NORM_MINMAX);
     div.convertTo(res, CV_8U);
-    //cvtColor(res, res2, COLOR_GRAY2BGR);
+    cvtColor(res, res2, COLOR_GRAY2BGR);
     return res;
 }
 int mode (int x[],int n)
 {
-    int y[5]={0};//Sets all arrays equal to 0
+    int y[SampleDigitsCount]={0};//Sets all arrays equal to 0
     int i,j,k,m,cnt,max=0,no_mode=0,mode_cnt=0;
     double num;
     
@@ -125,7 +126,7 @@ int mode (int x[],int n)
 -(NSString*) bestGuessCalc
 {
     NSString* bestGuess = @"";
-    int arr[5];
+    int arr[1];
     
     for (int i = 0; i < SampleDigits[0].length ; ++i)
     {
@@ -135,23 +136,95 @@ int mode (int x[],int n)
             arr[j] = [[SampleDigits[j] substringWithRange:NSMakeRange(i, 1)] intValue];
             
         }
-        bestGuess = [bestGuess stringByAppendingString:[NSString stringWithFormat:@"%d", mode(arr, 5)]];
+        bestGuess = [bestGuess stringByAppendingString:[NSString stringWithFormat:@"%d", mode(arr, SampleDigitsCount)]];
         
         
     }
     SampleDigits.clear();
     return bestGuess;
 }
-
+double angle( cv::Point pt1, cv::Point pt2, cv::Point pt0 )
+{
+    double dx1 = pt1.x - pt0.x;
+    double dy1 = pt1.y - pt0.y;
+    double dx2 = pt2.x - pt0.x;
+    double dy2 = pt2.y - pt0.y;
+    return (dx1*dx2 + dy1*dy2)/sqrt((dx1*dx1 + dy1*dy1)*(dx2*dx2 + dy2*dy2) + 1e-10);
+}
+vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
+{
+    vector<cv::Point> newCen;
+    vector<cv::Point> sectionsMin, sectionsMax;
+    sectionsMin.push_back(cv::Point(0,0));
+    sectionsMax.push_back(cv::Point(135, 240));
+    
+    sectionsMin.push_back(cv::Point(135, 0));
+    sectionsMax.push_back(cv::Point(270, 240));
+    
+    sectionsMin.push_back(cv::Point(0,240));
+    sectionsMax.push_back(cv::Point(135, 480));
+    
+    sectionsMin.push_back(cv::Point(135,240));
+    sectionsMax.push_back(cv::Point(270, 480));
+    
+    
+    cv::Point thePoint;
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 0; i < 4; ++i) {
+            if (points[i].x < sectionsMax[j].x
+                && points[i].y < sectionsMax[j].y
+                && points[i].x > sectionsMin[j].x
+                && points[i].y > sectionsMin[j].y
+                ) {
+                thePoint.x = points[i].x;
+                thePoint.y = points[i].y;
+            }
+        }
+        newCen.push_back(thePoint);
+    }
+    return newCen;
+    
+}
+Mat warp(Mat inputMat,Mat startM) {
+    int resultWidth = 1000;
+    int resultHeight = 1000;
+    
+    Mat outputMat = Mat(resultWidth, resultHeight, CV_8UC4);
+    
+    
+    
+    cv::Point ocvPOut1 =  cv::Point(0, 0);
+    cv::Point ocvPOut2 =  cv::Point(0, resultHeight);
+    cv::Point ocvPOut3 =  cv::Point(resultWidth, resultHeight);
+    cv::Point ocvPOut4 =  cv::Point(resultWidth, 0);
+    vector<cv::Point> dest(4);
+    dest.push_back(ocvPOut1);
+    dest.push_back(ocvPOut2);
+    dest.push_back(ocvPOut3);
+    dest.push_back(ocvPOut4);
+    Mat endM = Mat(dest);
+    
+    Mat perspectiveTransform = getPerspectiveTransform(startM, endM);
+    
+    warpPerspective(inputMat,
+                    outputMat,
+                    perspectiveTransform,
+                    cv::Size(resultWidth, resultHeight),
+                    INTER_CUBIC);
+    
+    return outputMat;
+}
 - (void)processImage:(Mat&)image
 {
-    Mat img = image,  org = image.clone(), thr, mask = [self MaskContour: img], kerx, kery, dx, dy, ret, close, closex, closey;
+    Mat img = image,  org = image.clone(), thr, mask , kerx, kery, dx, dy, ret, close, closex, closey;
     cv::Rect rec;
     cv::String a;
     vector<cv::Point> arrangedPoints, AllArrangedPoints, cen;
-    
-    GaussianBlur(img, img, cv::Size(3,3), 0);
+    resize(img, img, cv::Size(270, 480));
+    mask = [self MaskContour: img];
+    GaussianBlur(img, img, cv::Size(1,1), 0);
     Mat res = [self NormalizeImage:img];
+    //image = org;
     
     adaptiveThreshold(res, thr, 255, 0, 1, 19, 2);
     vector<vector<cv::Point>> lines, contours;
@@ -171,261 +244,435 @@ int mode (int x[],int n)
     
     drawContours(mask, contours, largest_contour_index, 0, 2);
     drawContours(mask, contours, largest_contour_index, Scalar(255, 255, 255), -1);
-    
-    bitwise_and(res, mask, res);
-    
-    //image = mask;
-    kerx=getStructuringElement(MORPH_RECT, cv::Size(2,10));
-    
-    
-    Sobel(res, dx, CV_16S, 1, 0);
-    
-    convertScaleAbs(dx, dx);
-    
-    normalize(dx, dx, 0,255, NORM_MINMAX);
-    
-    
-    ret = threshold(dx, close, 0, 255, THRESH_BINARY+THRESH_OTSU);
-    
-    morphologyEx(close, close, MORPH_CLOSE, kerx, cv::Point(-1,-1), 1);
-    
-    findContours(close, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
-    
-    for(int i=0; i<contours.size(); ++i)
-    {
-        rec = boundingRect(contours[i]);
-        if (rec.height/rec.width > 3) {
-            drawContours(close, contours, i, Scalar(255,255,255), -1);
-        }
-        else{
-            drawContours(close, contours, i, 0, -1);
-        }
-    }
-    
-    
-    morphologyEx(close, close, MORPH_DILATE, NULL, cv::Point(-1,-1), 2);
-    
-    
-    close.copyTo(closex);
-    kery=getStructuringElement(MORPH_RECT, cv::Size(10,2));
-    Sobel(res, dy, CV_16S, 0, 2);
-    convertScaleAbs(dy, dy);
-    normalize(dy, dy, 0,255, NORM_MINMAX);
-    ret = threshold(dy, close, 0, 255, THRESH_BINARY+THRESH_OTSU);
-    
-    morphologyEx(close, close, MORPH_CLOSE, kery);
-    findContours(close, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
-    
-    for(int i=0; i<contours.size(); ++i)
-    {
-        rec = boundingRect(contours[i]);
-        if (rec.width/rec.height > 3) {
-            drawContours(close, contours, i,Scalar(255,255,255),-1);
-        }
-        else{
-            drawContours(close, contours, i, 0, -1);
-        }
-    }
-    morphologyEx(close, close, MORPH_CLOSE, NULL, cv::Point(-1,-1), 2);
-    close.copyTo(closey);
-    bitwise_and(closex,closey, res);
-    morphologyEx(res, res, MORPH_OPEN
-                 , NULL, cv::Point(-1,-1), 1);
-    
-    
-    findContours(res, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
-    
-    
-    for (int i=0; i<contours.size(); ++i) {
-        {  cv::Moments m = moments(contours[i]);
-            cv::Point P = cv::Point(int(m.m10/m.m00), int(m.m01/m.m00));
-            cen.push_back(P);
-        }
-    }
-    
-    
-    
-    std::sort(cen.begin(), cen.end(), compareYX);
-    
-    
-    
-    
-    NSString* a1, *puzzle=@"";
-    if(cen.size()==16)
+    if ([[UIDevice currentDevice] orientation] == 1 || [[UIDevice currentDevice] orientation] == 5) {
         
-    {
-        for(int i=0; i<10; ++i)
-        {
-            for (int j = 0; j < 10; ++j) {
-                arrangedPoints.push_back(cv::Point(15+j*27.67,37+i*27.67));
-            }
-        }
-        if (isSolved) {
-            if (DetectedFrameCount < DetectedFrames) {
-                NSString *completedPuz = [NSString stringWithCString:getStringCompleted() encoding:NSASCIIStringEncoding];
-                NSString *puz = [[textField text] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                int lol=0;
-                for(int i=0; i < 81; ++i)
+        
+        if (largest_area > 30000) {
+            
+            
+            //bitwise_and(res, mask, res);
+            vector<cv::Point>approx;
+            vector<RotatedRect> rotatedRect;
+            if (contours.size() > 0) {
+                rec = boundingRect(contours[largest_contour_index]);
+                
+                approxPolyDP(Mat(contours[largest_contour_index]), approx,
+                             arcLength(Mat(contours[largest_contour_index]), true)*0.02, true);
+                
+                if (approx.size() == 4 &&
+                    fabs(contourArea(Mat(approx))) > 1000 &&
+                    isContourConvex(Mat(approx)) && largest_area < 70000)
                 {
-                    if (i%9==0&&i!=0) {
-                        lol++;
-                    }
-                    if (![[puz substringWithRange:NSMakeRange(i, 1)]isEqualToString:[completedPuz substringWithRange:NSMakeRange(i, 1)]]) {
-                        
-                        
-                        putText(img, [[completedPuz substringWithRange:NSMakeRange(i, 1)] UTF8String] , cv::Point(arrangedPoints[i+lol].x+10, arrangedPoints[i+lol].y+20), FONT_HERSHEY_DUPLEX, 0.5, Scalar(0,0,255));
-                        
+                    double maxCosine = 0;
+                    
+                    for( int j = 2; j < 5; j++ )
+                    {
+                        double cosine = fabs(angle(approx[j%4], approx[j-2], approx[j-1]));
+                        maxCosine = MAX(maxCosine, cosine);
                     }
                     
+                    if( maxCosine < 0.3  )
+                    {
+                        vector<cv::Point> corners;
+                        goodFeaturesToTrack(mask, corners, 4, 0.01, 30);
+                        
+                        
+                        //cout << "Square found";
+                        if (largest_area < 40000) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                
+                                
+                                [self.lab setText:[NSString stringWithFormat:@"Go Closer"]];
+                                
+                            });
+                        }
+                        else if (largest_area > 55000 && !isSolved)
+                        {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                
+                                
+                                [self.lab setText:[NSString stringWithFormat:@"Back Up"]];
+                                
+                            });
+                        }
+                        else
+                        {
+                            for(int i = 0; i < corners.size(); ++i)
+                            {
+                                
+                                
+                                
+                                
+                                cen.push_back(corners[i]);
+                            }
+                            vector<cv::Point>newCen;
+                            cv::Point point;
+                            //std::sort(cen.begin(), cen.end(), compareYX);
+                            newCen = sortThisMyWay(cen);
+                            
+                            
+                            //cout << cen.size() << " ";
+                            for (int i = 0; i < newCen.size(); ++i) {
+                                a = "(";
+                                a += to_string((newCen[i].x));
+                                a += ",";
+                                a += to_string((newCen[i].y));
+                                a += ");";
+                                
+                                
+                                //putText(image,a, cv::Point((newCen[i].x+2)*2.66667, (newCen[i].y+2)*2.66667), FONT_HERSHEY_PLAIN, 4, Scalar(255,255,255));
+                                cout << newCen[i] << " ";
+                            }
+                            cout << endl;
+                            NSString* a1, *puzzle=@"";
+                            if(cen.size()==4)
+                                
+                            {
+                                
+                                for(int i=0; i<1; ++i)
+                                {
+                                    // for (int k = 0; k < 3; ++k) {
+                                    arrangedPoints.push_back(newCen[i]);
+                                    for (int j = 1; j < 9; ++j) {
+                                        arrangedPoints.push_back([self sectionFormula:newCen[i] Point2:newCen[i+1] Division:cv::Point(j, 9-j)]);
+                                    }
+                                    arrangedPoints.push_back(newCen[i+1]);
+                                    for (int l = 0; l < 8; ++l) {
+                                        cv::Point temp1 = [self sectionFormula:newCen[i] Point2:newCen[i+2] Division:cv::Point(1+l,8-l)];
+                                        arrangedPoints.push_back(temp1);
+                                        cv::Point temp2 = [self sectionFormula:newCen[i+1] Point2:newCen[i+3] Division:cv::Point(1+l,8-l)];
+                                        for (int j=1; j < 9; ++j) {
+                                            arrangedPoints.push_back([self sectionFormula:temp1 Point2:temp2 Division:cv::Point(j, 9-j)]);
+                                        }
+                                        arrangedPoints.push_back(temp2);
+                                        
+
+                                    }
+                                    arrangedPoints.push_back(newCen[i+2]);
+                                    for (int j = 1; j < 9; ++j) {
+                                        arrangedPoints.push_back([self sectionFormula:newCen[i+2] Point2:newCen[i+3] Division:cv::Point(j, 9-j)]);
+                                    }
+                                    arrangedPoints.push_back(newCen[i+2]);
+                                    //arrangedPoints.push_back(cv::Point(15+j*27.67,37+i*27.67));
+                                    //}
+                                }
+                                for (int i=0; i < arrangedPoints.size(); ++i) {
+                                    arrangedPoints[i] = cv::Point((arrangedPoints[i].x+2)*2.66667, (arrangedPoints[i].y+2)*2.66667);
+                                }
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    
+                                    [self.detectedGrid setImage:[UIImage imageWithCGImage:CGImageCreateWithImageInRect([[UIImage imageWithCVMat:image] CGImage], CGRectMake(CGFloat(arrangedPoints[7].x+10), CGFloat(arrangedPoints[7].y+10), 50, 45)) ]];
+                                    
+                                    
+                                });
+                                
+                                if (isSolved) {
+                                    //if (DetectedFrameCount < DetectedFrames) {
+                                        NSString *completedPuz = [NSString stringWithCString:getStringCompleted() encoding:NSASCIIStringEncoding];
+                                        NSString *puz = [[textField text] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                                        int lol=0;
+                                        for(int i=0; i < 81; ++i)
+                                        {
+                                            if (i%9==0&&i!=0) {
+                                                lol++;
+                                            }
+                                            if (![[puz substringWithRange:NSMakeRange(i, 1)]isEqualToString:[completedPuz substringWithRange:NSMakeRange(i, 1)]]) {
+                                                
+                                                
+                                                putText(image, [[completedPuz substringWithRange:NSMakeRange(i, 1)] UTF8String] , cv::Point(arrangedPoints[i+lol].x+10, arrangedPoints[i+lol].y+50), FONT_HERSHEY_DUPLEX, 1.8, Scalar(0,0,255));
+                                                
+                                            }
+                                            
+                                        }
+                                        DetectedFrameCount++;
+                                    
+                                   // else DetectedFrameCount = 0;
+                                }
+                                else
+                                {
+                                    //if (cen[0].x > 15-tolerance && cen[0].x < 15+tolerance && cen[0].y > 37-tolerance && cen[0].y < 37+tolerance
+                                        //&& cen[3].x > 264-tolerance && cen[03].x < 264+tolerance && cen[03].y > 37-tolerance && cen[03].y < 37+tolerance
+                                        //&& cen[012].x > 15-tolerance && cen[012].x < 15+tolerance && cen[012].y > 286-tolerance && cen[012].y < 286+tolerance
+                                        //&& cen[015].x > 264-tolerance && cen[015].x < 264+tolerance && cen[015].y > 286-tolerance && cen[015].y < 286+tolerance
+                                   //     )
+                                    {
+                                        
+                                       
+
+                                        
+                                        
+                                        for (int i=0; i < arrangedPoints.size(); ++i) {
+                                            circle(image, arrangedPoints[i], 10, Scalar(255,1+(i*60), 0), -1);
+                                        }
+                                        if(!isSolved){
+                                          
+                                            
+                                            //                for(int i=0; i<AllArrangedPoints.size(); ++i)
+                                            //                {
+                                            //                    a.operator=(i+65);
+                                            //                    putText(img, a, AllArrangedPoints[i], FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
+                                            //                    circle(img, AllArrangedPoints[i], 2, Scalar(255,0,0), -1);
+                                            //
+                                            //                }
+                                            //image = img;
+                                            
+                                            if (SampleCount == Samples) {
+                                                SampleCount = 0;
+                                                G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
+                                                cv::Mat tmp;
+                                                cv::GaussianBlur(org, tmp, cv::Size(5,5), 5);
+                                                cv::addWeighted(org, 1.5, tmp, -0.5, 0, org);
+                                                
+                                                tesseract.charWhitelist = @" 0123456789";
+                                                [tesseract setImage:[[UIImage imageWithCVMat:[self NormalizeImage:image]] g8_blackAndWhite]];
+                                                
+                                                for(int i=0; i < 90; ++i)
+                                                {
+                                                    
+                                                    if((i+1)%10!=0 || i==0){
+                                                        tesseract.rect = CGRectMake(CGFloat(arrangedPoints[i].x+10), CGFloat(arrangedPoints[i].y+10), 40, 40);
+                                                        [tesseract recognize];
+                                                        a1 = [tesseract recognizedText];
+                                                        a1 = [a1 stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                                                        a1 = [a1 stringByReplacingOccurrencesOfString:@" " withString:@""];
+                                                        if ((i+1)%10==0 && i!=0 && i!=90) {
+                                                            puzzle=[puzzle stringByAppendingString:@""];
+                                                            
+                                                            continue;
+                                                        }
+                                                        if ([a1 length]==0) {
+                                                            puzzle=[puzzle stringByAppendingString:@"0"];
+                                                        }
+                                                        else puzzle=[puzzle stringByAppendingString:[a1 substringWithRange:NSMakeRange(0, 1)]];
+                                                    }
+                                                    
+                                                    
+                                                }
+
+                                                //puzzle = [self bestGuessCalc];
+                                                cout<<puzzle;
+                                                NSString *newPuzzleWithBreaks=@"";
+                                                for(int i=0; i<81; ++i)
+                                                {
+                                                    newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:[puzzle substringWithRange:NSMakeRange(i, 1) ]];
+                                                    if ((i+1)%9==0&&i!=0) {
+                                                        newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:@"\n"];
+                                                    }
+                                                    
+                                                }
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    
+                                                    [self.textField setText:newPuzzleWithBreaks];
+                                                    [self.lab setText:[NSString stringWithFormat:@"Confidence:%.2f", (float)(confidence / (Samples*81) * 100)]];
+                                                    if (1)//(float)(confidence / (Samples*81) * 100)) {
+                                                    {
+                                                        [self solve:NULL];
+                                                    }
+                                                    confidence = 0;
+                                                });
+                                            }
+                                            else {
+                                                SampleCount++;
+                                                SampleDigits.push_back(puzzle);
+                                                
+                                            }
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        }
+                                        else
+                                        {
+                                            
+                                            
+                                        }
+                                    }
+                                    
+//                                    else
+//                                    {
+//                                        a="Put Top Left Corner Here";
+//                                        putText(img, a, cv::Point(15,37), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
+//                                        circle(img, cv::Point(15,37), 4, Scalar(255,255,0), -1);
+//                                        
+//                                        a = "Put Corner Here";
+//                                        putText(img, a, cv::Point(150,67), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
+//                                        circle(img, cv::Point(264,37), 4, Scalar(255,255,0), -1);
+//                                        
+//                                        a = "Blah";
+//                                        putText(img, a, cv::Point(15,310), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
+//                                        circle(img, cv::Point(15,286), 4, Scalar(255,255,0), -1);
+//                                        
+//                                        a="And Bottom Right Corner Here";
+//                                        putText(img, a, cv::Point(25,264), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
+//                                        circle(img, cv::Point(264,286), 4, Scalar(255,255,0), -1);
+//                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (toleranceC == tolerance) {
+                                    
+                                    
+                                    toleranceC=0;
+                                    frames = 0;
+                                }
+                                else
+                                {
+                                    toleranceC++;
+                                }
+                            }
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                
+                                
+                                [self.lab setText:[NSString stringWithFormat:@"Just Right. Hold Still."]];
+                                
+                            });
+                            
+                            
+                        }
+                        
+                    }
+                    //cout << rec.x << " - " << rec.y << " " << "w" << rec.width << " h" << rec.height << " " << largest_area << " " << endl;
+                    //image = warp(image, );
+                    /*circle(image, cv::Point((rec.tl().x+2)*2.66667, (rec.tl().y+2)*2.66667), 10, Scalar(255,255,0), -1);
+                     
+                     circle(image, cv::Point((rec.x+rec.width)*2.66667, (rec.y+2)*2.66667), 10, Scalar(255,255,0), -1);
+                     circle(image, cv::Point((rec.x+2)*2.66667, (rec.y+rec.height)*2.66667), 10, Scalar(255,255,0), -1);
+                     circle(image, cv::Point((rec.br().x)*2.66667, (rec.br().y)*2.66667), 10, Scalar(255,255,0), -1);*/
+                    
                 }
-                DetectedFrameCount++;
+                
+                
+                
+                
             }
-            else DetectedFrameCount = 0;
+            
         }
         else
         {
-            if (cen[0].x > 15-tolerance && cen[0].x < 15+tolerance && cen[0].y > 37-tolerance && cen[0].y < 37+tolerance
-                //&& cen[3].x > 264-tolerance && cen[03].x < 264+tolerance && cen[03].y > 37-tolerance && cen[03].y < 37+tolerance
-                //&& cen[012].x > 15-tolerance && cen[012].x < 15+tolerance && cen[012].y > 286-tolerance && cen[012].y < 286+tolerance
-                //&& cen[015].x > 264-tolerance && cen[015].x < 264+tolerance && cen[015].y > 286-tolerance && cen[015].y < 286+tolerance
-                ) {
-                
-                for(int i=0; i<10; ++i)
-                {
-                    for (int j = 0; j < 10; ++j) {
-                        
-                        circle(img, cv::Point(15+j*27.67,37+i*27.67), 4, Scalar(255,255,0), -1);
-                        
-                        
-                        
-                    }
-                }
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
                 
+                [self.lab setText:[NSString stringWithFormat:@"Aim at Puzzle."]];
                 
-                if(!isSolved){
-                    
-                    //                for(int i=0; i<AllArrangedPoints.size(); ++i)
-                    //                {
-                    //                    a.operator=(i+65);
-                    //                    putText(img, a, AllArrangedPoints[i], FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
-                    //                    circle(img, AllArrangedPoints[i], 2, Scalar(255,0,0), -1);
-                    //
-                    //                }
-                    image = img;
-                    G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
-                    cv::Mat tmp;
-                    cv::GaussianBlur(org, tmp, cv::Size(5,5), 5);
-                    cv::addWeighted(org, 1.5, tmp, -0.5, 0, org);
-                    
-                    tesseract.charWhitelist = @"0123456789";
-                    [tesseract setImage:[[UIImage imageWithCVMat:[self NormalizeImage:org]] g8_blackAndWhite]];
-                    
-                    for(int i=0; i < 90; ++i)
-                    {
-                        
-                        
-                        tesseract.rect = CGRectMake(CGFloat(arrangedPoints[i].x+7), CGFloat(arrangedPoints[i].y+5), 13.67, 20.67);
-                        [tesseract recognize];
-                        a1 = [tesseract recognizedText];
-                        a1 = [a1 stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                        a1 = [a1 stringByReplacingOccurrencesOfString:@" " withString:@""];
-                        if ((i+1)%10==0 && i!=0 && i!=90) {
-                            puzzle=[puzzle stringByAppendingString:@""];
-                            
-                            continue;
-                        }
-                        if ([a1 length]==0) {
-                            puzzle=[puzzle stringByAppendingString:@"0"];
-                        }
-                        else puzzle=[puzzle stringByAppendingString:[a1 substringWithRange:NSMakeRange(0, 1)]];
-                        
-                        
-                        
-                    }
-                    
-                    if (SampleCount == Samples) {
-                        SampleCount = 0;
-                        puzzle = [self bestGuessCalc];
-                        NSString *newPuzzleWithBreaks=@"";
-                        for(int i=0; i<81; ++i)
-                        {
-                            newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:[puzzle substringWithRange:NSMakeRange(i, 1) ]];
-                            if ((i+1)%9==0&&i!=0) {
-                                newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:@"\n"];
-                            }
-                            
-                        }
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            
-                            [self.textField setText:newPuzzleWithBreaks];
-                            [self.lab setText:[NSString stringWithFormat:@"Confidence:%.2f", (float)(confidence / (Samples*81) * 100)]];
-                            if ((float)(confidence / (Samples*81) * 100) > 98) {
-                                [self solve:NULL];
-                            }
-                            confidence = 0;
-                        });
-                    }
-                    else {
-                        SampleCount++;
-                        SampleDigits.push_back(puzzle);
-                        
-                    }
-                    
-                    
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [self.detectedGrid setImage:[UIImage imageWithCGImage:CGImageCreateWithImageInRect([[UIImage imageWithCVMat:org] CGImage], CGRectMake(CGFloat(arrangedPoints[53].x+7), CGFloat(arrangedPoints[53].y+5), 13.67, 20.67)) ]];
-                        
-                        
-                    });
-                    
-                    
-                    
-                    
-                    
-                }
-                else
-                {
-                    
-                    
-                }
-            }
-            
-            else
-            {
-                a="Put Top Left Corner Here";
-                putText(img, a, cv::Point(15,37), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
-                circle(img, cv::Point(15,37), 4, Scalar(255,255,0), -1);
-                
-                a = "Put Corner Here";
-                putText(img, a, cv::Point(150,67), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
-                circle(img, cv::Point(264,37), 4, Scalar(255,255,0), -1);
-                
-                a = "Blah";
-                putText(img, a, cv::Point(15,310), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
-                circle(img, cv::Point(15,286), 4, Scalar(255,255,0), -1);
-                
-                a="And Bottom Right Corner Here";
-                putText(img, a, cv::Point(25,264), FONT_HERSHEY_PLAIN, 1, Scalar(255,255,255));
-                circle(img, cv::Point(264,286), 4, Scalar(255,255,0), -1);
-            }
+            });
         }
     }
     else
     {
-        if (toleranceC == tolerance) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             
             
-            toleranceC=0;
-            frames = 0;
-        }
-        else
-        {
-            toleranceC++;
-        }
+            [self.lab setText:[NSString stringWithFormat:@"Aim at Puzzle. And Keep Device Straight"]];
+            
+        });
     }
+    /*
+     Debug Data -
+     1080x1920:
+     Square found58 - 306 w600 h595 342367
+     Square found59 - 305 w601 h595 342602
+     Square found60 - 305 w601 h594 342503
+     Square found60 - 304 w601 h595 342659
+     Square found59 - 303 w601 h595 342598
+     Square found59 - 304 w600 h595 342598
+     Square found59 - 303 w601 h595 343133
+     Square found61 - 298 w601 h597 344171
+     
+     270x480:
+     Square found32 - 68 w415 h129 51643
+     Square found32 - 68 w414 h129 51559
+     Square found34 - 68 w414 h130 51532
+     Square found34 - 68 w415 h130 51630
+     Square found34 - 68 w414 h130 51614
+     Square found37 - 69 w413 h129 51569
+     Square found39 - 69 w413 h129 51449
+     Square found41 - 69 w414 h130 51487
+     Square found40 - 68 w415 h131 51600
+     Square found37 - 68 w415 h130 51778
+     Square found34 - 68 w416 h130 51893
+     
+     
+     */
+    /*
+     Nice code to detect lines but too jittery
+     
+     kerx=getStructuringElement(MORPH_RECT, cv::Size(slider1.value,slider2.value));
+     
+     
+     Sobel(res, dx, CV_16S, 1, 0);
+     
+     convertScaleAbs(dx, dx);
+     
+     normalize(dx, dx, 0,255, NORM_MINMAX);
+     
+     
+     ret = threshold(dx, close, 0, 255, THRESH_BINARY+THRESH_OTSU);
+     morphologyEx(close, close, MORPH_CLOSE, kerx, cv::Point(-1,-1), 4);
+     
+     findContours(close, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+     
+     for(int i=0; i<contours.size(); ++i)
+     {
+     rec = boundingRect(contours[i]);
+     if (rec.height/rec.width > slider3.value) {
+     drawContours(close, contours, i, Scalar(255,255,255), -1);
+     }
+     else{
+     drawContours(close, contours, i, 0, -1);
+     }
+     }
+     
+     
+     morphologyEx(close, close, MORPH_DILATE, NULL, cv::Point(-1,-1), 2);
+     
+     
+     close.copyTo(closex);
+     //image = closex;
+     kery=getStructuringElement(MORPH_RECT, cv::Size(10,2));
+     Sobel(res, dy, CV_16S, 0, 2);
+     convertScaleAbs(dy, dy);
+     normalize(dy, dy, 0,255, NORM_MINMAX);
+     ret = threshold(dy, close, 0, 255, THRESH_BINARY+THRESH_OTSU);
+     
+     morphologyEx(close, close, MORPH_CLOSE, kery);
+     findContours(close, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+     
+     for(int i=0; i<contours.size(); ++i)
+     {
+     rec = boundingRect(contours[i]);
+     if (rec.width/rec.height > 3) {
+     drawContours(close, contours, i,Scalar(255,255,255),-1);
+     }
+     else{
+     drawContours(close, contours, i, 0, -1);
+     }
+     }
+     morphologyEx(close, close, MORPH_CLOSE, NULL, cv::Point(-1,-1), 2);
+     close.copyTo(closey);
+     bitwise_and(closex,closey, res);
+     morphologyEx(res, res, MORPH_OPEN
+     , NULL, cv::Point(-1,-1), 1);
+     
+     
+     findContours(res, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+     
+     
+     for (int i=0; i<contours.size(); ++i) {
+     {  cv::Moments m = moments(contours[i]);
+     cv::Point P = cv::Point(int(m.m10/m.m00), int(m.m01/m.m00));
+     cen.push_back(P);
+     }
+     }
+     
+     */
     arrangedPoints.clear();
     
 }
@@ -438,14 +685,16 @@ int mode (int x[],int n)
     self.videoCamera = [[CvVideoCamera alloc] initWithParentView:imageView];
     
     self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
-    self.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset352x288;
+    self.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset1280x720;
     self.videoCamera.defaultAVCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
     self.videoCamera.defaultFPS = 30;
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     self.videoCamera.delegate = self;
-
-    //[self.videoCamera start];
-
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.videoCamera start];
+    });
+    //
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -456,7 +705,7 @@ bool Reset=NO;
 
 - (IBAction)ToggleView:(UIButton *)sender {
     
-
+    
     
     
     if (ContainerView.hidden == YES) {
@@ -482,19 +731,23 @@ bool Reset=NO;
     
 }
 
+- (IBAction)TapToStartVid:(UITapGestureRecognizer *)sender {
+    //[self.videoCamera start];
+}
+
 - (IBAction)startProcessing:(id)sender {
     
-   
+    
     
     
     [self.videoCamera start];
-    [self ToggleDrawer:NULL];
+    
     
     frames = 0;
     tolerance = 2;
     toleranceC=0;
     SampleCount=0;
-    Samples = 5;
+    Samples = SampleDigitsCount;
     confidence = 0;
     SampleDigits.clear();
     if(isSolved==1)
@@ -540,7 +793,7 @@ bool Reset=NO;
 }
 - (IBAction)ToggleDrawer:(UIButton *)sender {
     if (ContainerView.hidden == YES) {
-       ContainerView.hidden = NO;
+        ContainerView.hidden = NO;
     }
     else ContainerView.hidden = YES;
 }
