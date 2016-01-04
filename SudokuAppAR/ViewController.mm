@@ -126,7 +126,7 @@ int mode (int x[],int n)
 -(NSString*) bestGuessCalc
 {
     NSString* bestGuess = @"";
-    int arr[1];
+    int arr[SampleDigitsCount];
     
     for (int i = 0; i < SampleDigits[0].length ; ++i)
     {
@@ -143,6 +143,7 @@ int mode (int x[],int n)
     SampleDigits.clear();
     return bestGuess;
 }
+int processingInQueue=0;
 double angle( cv::Point pt1, cv::Point pt2, cv::Point pt0 )
 {
     double dx1 = pt1.x - pt0.x;
@@ -214,9 +215,54 @@ Mat warp(Mat inputMat,Mat startM) {
     
     return outputMat;
 }
+
+vector<Mat> SampleImage;
+vector<vector<cv::Point>> SamplePoints;
+-(void)processSampleImages
+{
+    G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
+    tesseract.charWhitelist = @" 0123456789";
+    cv::Mat tmp;
+    NSString* a1, *puzzle=@"";
+    for (int j=0; j<SampleDigitsCount; ++j) {
+        cv::GaussianBlur(SampleImage[j], tmp, cv::Size(5,5), 5);
+        cv::addWeighted(SampleImage[j], 1.5, tmp, -0.5, 0, SampleImage[j]);
+        [tesseract setImage:[[UIImage imageWithCVMat:[self NormalizeImage:SampleImage[j]]] g8_blackAndWhite]];
+        for(int i=0; i < 90; ++i)
+        {
+            
+            if((i+1)%10!=0 || i==0){
+                tesseract.rect = CGRectMake(CGFloat(SamplePoints[j][i].x+10), CGFloat(SamplePoints[j][i].y+10), 40, 40);
+                [tesseract recognize];
+                a1 = [tesseract recognizedText];
+                a1 = [a1 stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                a1 = [a1 stringByReplacingOccurrencesOfString:@" " withString:@""];
+                if ((i+1)%10==0 && i!=0 && i!=90) {
+                    puzzle=[puzzle stringByAppendingString:@""];
+                    
+                    continue;
+                }
+                if ([a1 length]==0) {
+                    puzzle=[puzzle stringByAppendingString:@"0"];
+                }
+                else puzzle=[puzzle stringByAppendingString:[a1 substringWithRange:NSMakeRange(0, 1)]];
+            }
+            
+            
+        }
+        SampleDigits.push_back(puzzle);
+    }
+    
+    
+    
+    
+    
+    
+}
 - (void)processImage:(Mat&)image
 {
     Mat img = image,  org = image.clone(), thr, mask , kerx, kery, dx, dy, ret, close, closex, closey;
+    
     cv::Rect rec;
     cv::String a;
     vector<cv::Point> arrangedPoints, AllArrangedPoints, cen;
@@ -324,7 +370,7 @@ Mat warp(Mat inputMat,Mat startM) {
                                 cout << newCen[i] << " ";
                             }
                             cout << endl;
-                            NSString* a1, *puzzle=@"";
+                            
                             if(cen.size()==4)
                                 
                             {
@@ -418,51 +464,26 @@ Mat warp(Mat inputMat,Mat startM) {
                                             //image = img;
                                             
                                             if (SampleCount == Samples) {
-                                                SampleCount = 0;
-                                                G8Tesseract *tesseract = [[G8Tesseract alloc] initWithLanguage:@"eng"];
-                                                cv::Mat tmp;
-                                                cv::GaussianBlur(org, tmp, cv::Size(5,5), 5);
-                                                cv::addWeighted(org, 1.5, tmp, -0.5, 0, org);
-                                                
-                                                tesseract.charWhitelist = @" 0123456789";
-                                                [tesseract setImage:[[UIImage imageWithCVMat:[self NormalizeImage:image]] g8_blackAndWhite]];
-                                                
-                                                for(int i=0; i < 90; ++i)
-                                                {
-                                                    
-                                                    if((i+1)%10!=0 || i==0){
-                                                        tesseract.rect = CGRectMake(CGFloat(arrangedPoints[i].x+10), CGFloat(arrangedPoints[i].y+10), 40, 40);
-                                                        [tesseract recognize];
-                                                        a1 = [tesseract recognizedText];
-                                                        a1 = [a1 stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                                                        a1 = [a1 stringByReplacingOccurrencesOfString:@" " withString:@""];
-                                                        if ((i+1)%10==0 && i!=0 && i!=90) {
-                                                            puzzle=[puzzle stringByAppendingString:@""];
-                                                            
-                                                            continue;
-                                                        }
-                                                        if ([a1 length]==0) {
-                                                            puzzle=[puzzle stringByAppendingString:@"0"];
-                                                        }
-                                                        else puzzle=[puzzle stringByAppendingString:[a1 substringWithRange:NSMakeRange(0, 1)]];
-                                                    }
-                                                    
-                                                    
-                                                }
-
-                                                //puzzle = [self bestGuessCalc];
-                                                cout<<puzzle;
-                                                NSString *newPuzzleWithBreaks=@"";
-                                                for(int i=0; i<81; ++i)
-                                                {
-                                                    newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:[puzzle substringWithRange:NSMakeRange(i, 1) ]];
-                                                    if ((i+1)%9==0&&i!=0) {
-                                                        newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:@"\n"];
-                                                    }
-                                                    
-                                                }
+                                                processingInQueue=1;
+                                                NSOperationQueue *queue = [NSOperationQueue alloc];
+                                                queue.o
                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                    
+                                                    SampleCount = 0;
+                                                    [self processSampleImages];
+                                                    NSString *puzzle=@"";
+                                                    puzzle = [self bestGuessCalc];
+                                                    cout<<puzzle;
+                                                    SampleImage.clear();
+                                                    SamplePoints.clear();
+                                                    NSString *newPuzzleWithBreaks=@"";
+                                                    for(int i=0; i<81; ++i)
+                                                    {
+                                                        newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:[puzzle substringWithRange:NSMakeRange(i, 1) ]];
+                                                        if ((i+1)%9==0&&i!=0) {
+                                                            newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:@"\n"];
+                                                        }
+                                                        
+                                                    }
                                                     [self.textField setText:newPuzzleWithBreaks];
                                                     [self.lab setText:[NSString stringWithFormat:@"Confidence:%.2f", (float)(confidence / (Samples*81) * 100)]];
                                                     if (1)//(float)(confidence / (Samples*81) * 100)) {
@@ -470,12 +491,13 @@ Mat warp(Mat inputMat,Mat startM) {
                                                         [self solve:NULL];
                                                     }
                                                     confidence = 0;
+                                                    processingInQueue=0;
                                                 });
                                             }
-                                            else {
+                                            else if(!processingInQueue) {
                                                 SampleCount++;
-                                                SampleDigits.push_back(puzzle);
-                                                
+                                                SampleImage.push_back(image.clone());
+                                                SamplePoints.push_back(arrangedPoints);
                                             }
                                             
                                             
