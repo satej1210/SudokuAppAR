@@ -465,8 +465,7 @@ vector<vector<cv::Point>> SamplePoints;
                                             
                                             if (SampleCount == Samples) {
                                                 processingInQueue=1;
-                                                NSOperationQueue *queue = [NSOperationQueue alloc];
-                                                queue.o
+                                                
                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                     SampleCount = 0;
                                                     [self processSampleImages];
