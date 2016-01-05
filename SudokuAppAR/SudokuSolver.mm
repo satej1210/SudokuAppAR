@@ -1132,7 +1132,27 @@ char* getStringCompleted()
     return completedString;
 }
 
-
+int CheckPuzzle()
+{
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            if(sudoku[i][j].is_filled)
+            {
+                for (int k = 0; k < 9; ++k) {
+                    if (sudoku[i][j].GetState() == sudoku[i][k].GetState() && j!=k) {
+                        return 1;
+                    }
+                }
+                for (int k = 0; k < 9; ++k) {
+                    if (sudoku[i][j].GetState() == sudoku[k][j].GetState() && i!=k) {
+                        return 1;
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}
 int theMain()
 {
     //DrawGrid();
@@ -1141,7 +1161,7 @@ int theMain()
     DrawGrid();
     int completed = 0;
     
-    
+    if (CheckPuzzle()==0) {
         for(int i=0; i<10 && !PuzzleCompleted(); ++i)
         {
             
@@ -1165,8 +1185,10 @@ int theMain()
             
             
         }
+
+    }
     
-    
+    else completed = 0;
     
     DrawGrid();
     return completed;
