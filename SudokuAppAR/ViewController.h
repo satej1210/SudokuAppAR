@@ -12,15 +12,26 @@
 #import "TesseractOCR.framework/Headers/TesseractOCR.h"
 #import <opencv2/videoio/cap_ios.h>
 
-@interface ViewController : UIViewController<UITextViewDelegate,CvVideoCameraDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate,  UINavigationControllerDelegate>
+@interface ViewController : UIViewController<UITextViewDelegate,CvVideoCameraDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate,  UINavigationControllerDelegate>//UIPickerViewDataSource, UIPickerViewDelegate>
 {
     UIImagePickerController *ipc;
+    
 }
+
+
 @property (weak, nonatomic) IBOutlet UIButton *ImageViewButton;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, strong, retain) IBOutlet UIImageView *detectedGrid;
 @property (nonatomic, strong) IBOutlet UILabel *lab;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *HeightConstraint;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UISwitch *RTS;
+
+- (IBAction)RealTimeSwitch:(UISwitch*)sender;
+@property (weak, nonatomic) IBOutlet UILabel *CellDisplay;
+
+@property (weak, nonatomic) IBOutlet UIStepper *RowStep;
+- (IBAction)CellStepper:(id)sender;
 
 
 @property (weak, nonatomic) IBOutlet UIView *ContainerView;
