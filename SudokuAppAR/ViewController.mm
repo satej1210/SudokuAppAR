@@ -243,7 +243,7 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
             
             if((i+1)%10!=0 || i==0)
             {
-                tesseract.rect = CGRectMake(CGFloat(SamplePoints[j][i].x+10), CGFloat(SamplePoints[j][i].y+10), 50, 45);
+                tesseract.rect = CGRectMake(CGFloat(SamplePoints[j][i].x+10), CGFloat(SamplePoints[j][i].y+10), 45, 45);
                 [tesseract recognize];
                 
                 a1 = [tesseract recognizedText];
@@ -654,9 +654,9 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
                                             
                                             
                                             processingInQueue=1;
-                                            
+                                            cv::Mat ip = image.clone();
                                             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                SampleImage.push_back(image.clone());
+                                                SampleImage.push_back(ip);
                                                 SamplePoints.push_back(arrangedPoints);
                                                 [self processSampleImages];
                                                 NSString *puzzle=@"";
@@ -917,8 +917,11 @@ bool Reset=NO;
     [_CellDisplay setText:[NSString stringWithFormat:@"Cell at %.0f", _RowStep.value]];
     
     NSLog(@"%d, %f \n",int(_RowStep.value)%10, _RowStep.stepValue);
-    cv::Mat img = cvMatFromUIImage(imageView.image);
-    [self processImage:img];
+    if (!usingVideo) {
+        cv::Mat img = cvMatFromUIImage(imageView.image);
+        [self processImage:img];
+    }
+    
 }
 - (IBAction)RealTimeSwitch:(UISwitch*)sender {
     if (sender.on) {

@@ -281,7 +281,6 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="rNA-aa-AzU"/>
                                         <exclude reference="0Pk-ud-bfJ"/>
                                         <exclude reference="0r6-Wi-TbL"/>
                                         <exclude reference="2DO-kV-WF6"/>
@@ -292,6 +291,7 @@
                                         <exclude reference="l9F-pe-Y3c"/>
                                         <exclude reference="mZg-oy-gMu"/>
                                         <exclude reference="wyI-qb-VoJ"/>
+                                        <exclude reference="rNA-aa-AzU"/>
                                     </mask>
                                 </variation>
                             </scrollView>
