@@ -37,4 +37,5 @@ void  nakedquadbox(int x, int y);
 void  nakedpairrow(int x);
 class cellSudoku;
 char* getStringCompleted();
+class naked;
 #endif /* SudokuSolver_h */

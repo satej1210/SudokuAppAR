@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *HeightConstraint;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UISwitch *RTS;
+@property (weak, nonatomic) IBOutlet UIButton *Photos;
 
 - (IBAction)RealTimeSwitch:(UISwitch*)sender;
 @property (weak, nonatomic) IBOutlet UILabel *CellDisplay;

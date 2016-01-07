@@ -47,7 +47,7 @@
                                             <outletCollection property="gestureRecognizers" destination="2rn-0H-1Wt" appends="YES" id="yG7-G3-O64"/>
                                         </connections>
                                     </imageView>
-                                    <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ob3-ji-SyU">
+                                    <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ob3-ji-SyU">
                                         <rect key="frame" x="0.0" y="457" width="375" height="210"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zGF-oi-9t4">
@@ -83,7 +83,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eY7-zj-Q43">
                                                         <rect key="frame" x="138" y="84" width="98" height="30"/>
                                                         <state key="normal" title="Reset">
-                                                            <color key="titleColor" red="0.0" green="0.42433181821548516" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="startProcessing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lOa-MF-Q8n"/>
@@ -126,27 +126,29 @@
                                                             </mask>
                                                         </variation>
                                                     </textView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mPl-d0-Ka0">
+                                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mPl-d0-Ka0">
                                                         <rect key="frame" x="138" y="46" width="98" height="30"/>
-                                                        <state key="normal" title="Photos"/>
+                                                        <state key="normal" title="Photos">
+                                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="btnGalleryClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y8p-60-4H3"/>
                                                         </connections>
                                                     </button>
                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="88" translatesAutoresizingMaskIntoConstraints="NO" id="8EM-XM-Wse">
-                                                        <rect key="frame" x="10" y="150" width="94" height="29"/>
+                                                        <rect key="frame" x="0.0" y="-457" width="94" height="29"/>
                                                         <connections>
                                                             <action selector="CellStepper:" destination="BYZ-38-t0r" eventType="valueChanged" id="l0F-pK-oki"/>
                                                         </connections>
                                                     </stepper>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wr3-Ak-e2d">
-                                                        <rect key="frame" x="10" y="122" width="94" height="20"/>
+                                                        <rect key="frame" x="0.0" y="-457" width="42" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Real Time?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfr-bL-05z">
-                                                        <rect key="frame" x="145" y="122" width="84" height="21"/>
+                                                        <rect key="frame" x="0.0" y="-457" width="83.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -245,7 +247,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fYH-Wx-fBb">
-                                        <rect key="frame" x="47" y="319" width="280" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="30"/>
                                         <state key="normal" title="Camera not Found. Choose from Photos."/>
                                         <connections>
                                             <action selector="btnGalleryClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hjQ-Ex-mAR"/>
@@ -275,6 +277,7 @@
                                     <constraint firstItem="016-b7-Fcy" firstAttribute="leading" secondItem="E83-Ap-XbZ" secondAttribute="leading" id="nrD-Dr-vXC"/>
                                     <constraint firstAttribute="trailing" secondItem="ob3-ji-SyU" secondAttribute="trailing" id="oWC-hE-2re"/>
                                     <constraint firstItem="7lf-b1-02j" firstAttribute="leading" secondItem="E83-Ap-XbZ" secondAttribute="leading" id="ofZ-hP-38h"/>
+                                    <constraint firstAttribute="height" constant="667" id="qOl-oW-m2G"/>
                                     <constraint firstAttribute="bottom" secondItem="7lf-b1-02j" secondAttribute="bottom" id="qxA-S5-x5d"/>
                                     <constraint firstItem="7lf-b1-02j" firstAttribute="firstBaseline" secondItem="016-b7-Fcy" secondAttribute="firstBaseline" id="rNA-aa-AzU"/>
                                     <constraint firstItem="ob3-ji-SyU" firstAttribute="bottom" secondItem="016-b7-Fcy" secondAttribute="bottom" id="wyI-qb-VoJ"/>
@@ -300,9 +303,12 @@
                         <constraints>
                             <constraint firstItem="E83-Ap-XbZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1sn-ce-q3U"/>
                             <constraint firstItem="E83-Ap-XbZ" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="2Fb-x4-72S"/>
+                            <constraint firstItem="E83-Ap-XbZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="AQm-he-vOo"/>
                             <constraint firstItem="E83-Ap-XbZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ATV-kH-Ymw"/>
+                            <constraint firstItem="E83-Ap-XbZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="AwL-vt-3dW"/>
                             <constraint firstAttribute="trailing" secondItem="E83-Ap-XbZ" secondAttribute="trailing" id="CFh-ZN-aqG"/>
                             <constraint firstItem="E83-Ap-XbZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GTR-ds-ldJ"/>
+                            <constraint firstItem="E83-Ap-XbZ" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="IMz-nC-nle"/>
                             <constraint firstItem="E83-Ap-XbZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JGZ-u6-feS"/>
                             <constraint firstItem="E83-Ap-XbZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Uwh-jX-6V3"/>
                             <constraint firstItem="E83-Ap-XbZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cI5-6W-aAV"/>
@@ -312,12 +318,17 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="1sn-ce-q3U"/>
                                 <exclude reference="2Fb-x4-72S"/>
                                 <exclude reference="ATV-kH-Ymw"/>
+                                <exclude reference="AwL-vt-3dW"/>
                                 <exclude reference="GTR-ds-ldJ"/>
+                                <exclude reference="IMz-nC-nle"/>
                                 <exclude reference="Uwh-jX-6V3"/>
                                 <exclude reference="cI5-6W-aAV"/>
+                                <exclude reference="q6G-YH-n8Q"/>
                                 <exclude reference="wjs-ks-Wre"/>
+                                <exclude reference="hO4-Gs-iRG"/>
                             </mask>
                         </variation>
                     </view>
@@ -327,6 +338,7 @@
                         <outlet property="ContainerView" destination="ob3-ji-SyU" id="fAz-Ad-1U3"/>
                         <outlet property="HeightConstraint" destination="ntT-sO-af2" id="0gz-LI-uOo"/>
                         <outlet property="ImageViewButton" destination="fYH-Wx-fBb" id="QTi-Ub-MM7"/>
+                        <outlet property="Photos" destination="mPl-d0-Ka0" id="ve9-TR-pIb"/>
                         <outlet property="RTS" destination="Ryi-kP-Yf7" id="kTd-17-heB"/>
                         <outlet property="RowStep" destination="8EM-XM-Wse" id="STs-IW-ntH"/>
                         <outlet property="Solved" destination="E83-Ap-XbZ" id="1aw-aF-16K"/>
