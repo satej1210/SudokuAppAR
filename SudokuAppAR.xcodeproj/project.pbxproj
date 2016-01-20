@@ -32,6 +32,7 @@
 		3477F3DD1C2CB51F000E7EDC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3477F3DC1C2CB51F000E7EDC /* AssetsLibrary.framework */; };
 		3479C5B61C34B0450023D230 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3479C5B51C34B0450023D230 /* Accelerate.framework */; };
 		34CA3CC41C37D8D60084AAB4 /* SudokuSolver.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CA3CC31C37D8D60084AAB4 /* SudokuSolver.mm */; };
+		34E0CC2D1C49DCEF00D29502 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E0CC2C1C49DCEF00D29502 /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		3479C5B51C34B0450023D230 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		34CA3CC21C37D8D60084AAB4 /* SudokuSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SudokuSolver.h; sourceTree = "<group>"; };
 		34CA3CC31C37D8D60084AAB4 /* SudokuSolver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SudokuSolver.mm; sourceTree = "<group>"; };
+		34E0CC2C1C49DCEF00D29502 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34E0CC2D1C49DCEF00D29502 /* AudioToolbox.framework in Frameworks */,
 				34266F1C1C35D505002A3609 /* CoreText.framework in Frameworks */,
 				34266F1A1C35D4F5002A3609 /* CoreImage.framework in Frameworks */,
 				34266F181C35D4E0002A3609 /* libstdc++.tbd in Frameworks */,
@@ -96,6 +99,7 @@
 		3477F3AA1C2CB07C000E7EDC = {
 			isa = PBXGroup;
 			children = (
+				34E0CC2C1C49DCEF00D29502 /* AudioToolbox.framework */,
 				34266F1B1C35D505002A3609 /* CoreText.framework */,
 				34266F191C35D4F5002A3609 /* CoreImage.framework */,
 				34266F171C35D4E0002A3609 /* libstdc++.tbd */,

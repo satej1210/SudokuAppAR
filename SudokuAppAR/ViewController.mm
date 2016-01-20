@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #include "SudokuSolver.h"
-#define SampleDigitsCount 10
+#define SampleDigitsCount 5
 using namespace cv;
 using namespace std;
 
@@ -690,7 +690,7 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
                                                     
                                                     if (isSolved) {
                                                         [lab setText:@"Puzzle Solved!"];
-                                                        
+                                                        AudioServicesPlaySystemSound(1352);
                                                         if (!usingVideo) {
                                                             cv::Mat p = cvMatFromUIImage(imageView.image);
                                                             [self processImage:p];

@@ -11,7 +11,7 @@
 #import "UIImage+OpenCV.h"
 #import "TesseractOCR.framework/Headers/TesseractOCR.h"
 #import <opencv2/videoio/cap_ios.h>
-
+#import <AudioToolbox/AudioToolbox.h>
 @interface ViewController : UIViewController<UITextViewDelegate,CvVideoCameraDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate,  UINavigationControllerDelegate>//UIPickerViewDataSource, UIPickerViewDelegate>
 {
     UIImagePickerController *ipc;
