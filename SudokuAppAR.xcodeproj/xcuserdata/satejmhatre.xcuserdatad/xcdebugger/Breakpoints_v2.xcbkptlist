@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1232"
-            endingLineNumber = "1232">
+            startingLineNumber = "1312"
+            endingLineNumber = "1312">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -24,13 +24,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
+            timestampString = "476243443.420796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1128"
-            endingLineNumber = "1128"
+            startingLineNumber = "1147"
+            endingLineNumber = "1147"
             landmarkName = "getStringCompleted()"
-            landmarkType = "7">
+            landmarkType = "9">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -72,13 +72,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
+            timestampString = "476243443.420796"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1144"
+            endingLineNumber = "1144"
+            landmarkName = "getStringCompleted()"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/SudokuSolver.mm"
+            timestampString = "476243443.420796"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1130"
+            endingLineNumber = "1130"
+            landmarkName = "GetPuz(const char *puz)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/SudokuSolver.mm"
+            timestampString = "476243443.420796"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1127"
+            endingLineNumber = "1127"
+            landmarkName = "GetPuz(const char *puz)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/SudokuSolver.mm"
+            timestampString = "476243443.420796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1125"
             endingLineNumber = "1125"
-            landmarkName = "getStringCompleted()"
-            landmarkType = "7">
+            landmarkName = "GetPuz(const char *puz)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -88,61 +136,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
+            timestampString = "476243443.420796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1111"
-            endingLineNumber = "1111"
+            startingLineNumber = "1140"
+            endingLineNumber = "1140"
             landmarkName = "GetPuz(const char *puz)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1108"
-            endingLineNumber = "1108"
-            landmarkName = "GetPuz(const char *puz)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1106"
-            endingLineNumber = "1106"
-            landmarkName = "GetPuz(const char *puz)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1121"
-            endingLineNumber = "1121"
-            landmarkName = "GetPuz(const char *puz)"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1244"
-            endingLineNumber = "1244">
+            startingLineNumber = "1324"
+            endingLineNumber = "1324">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -166,11 +166,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1252"
-            endingLineNumber = "1252">
+            startingLineNumber = "1332"
+            endingLineNumber = "1332">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -260,42 +260,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
+            timestampString = "476243443.420796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "468"
-            endingLineNumber = "468"
+            startingLineNumber = "487"
+            endingLineNumber = "487"
             landmarkName = "naked::nakedtriplerow(int RowNumber)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1122"
-            endingLineNumber = "1122">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1119"
-            endingLineNumber = "1119"
-            landmarkName = "GetPuz(const char *puz)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -306,13 +276,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
+            timestampString = "476243443.420796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
+            startingLineNumber = "1141"
+            endingLineNumber = "1141">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/SudokuSolver.mm"
+            timestampString = "476243443.420796"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1138"
+            endingLineNumber = "1138"
+            landmarkName = "GetPuz(const char *puz)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/SudokuSolver.mm"
+            timestampString = "476243443.420796"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "naked::nakedquadrow(int RowNumber)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -322,13 +322,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
+            timestampString = "476243443.420796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "470"
-            endingLineNumber = "470"
+            startingLineNumber = "489"
+            endingLineNumber = "489"
             landmarkName = "naked::nakedtriplerow(int RowNumber)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -338,13 +338,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
+            timestampString = "476243443.420796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "546"
+            endingLineNumber = "546"
             landmarkName = "naked::nakedtriplecolumn(int ColumnNumber)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -354,13 +354,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473562648.006866"
+            timestampString = "476243443.420796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "529"
-            endingLineNumber = "529"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
             landmarkName = "naked::nakedtriplecolumn(int ColumnNumber)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -376,7 +376,7 @@
             startingLineNumber = "169"
             endingLineNumber = "169"
             landmarkName = "-bestGuessCalc"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -386,11 +386,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1178"
-            endingLineNumber = "1178">
+            startingLineNumber = "1258"
+            endingLineNumber = "1258">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -400,11 +400,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1230"
-            endingLineNumber = "1230">
+            startingLineNumber = "1310"
+            endingLineNumber = "1310">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -420,7 +420,7 @@
             startingLineNumber = "44"
             endingLineNumber = "44"
             landmarkName = "-TapToStartVid:"
-            landmarkType = "4">
+            landmarkType = "6">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -436,7 +436,7 @@
             startingLineNumber = "168"
             endingLineNumber = "168"
             landmarkName = "-bestGuessCalc"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -446,13 +446,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "933"
-            endingLineNumber = "933"
+            startingLineNumber = "1013"
+            endingLineNumber = "1013"
             landmarkName = "-CellStepper:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -462,11 +462,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1257"
-            endingLineNumber = "1257">
+            startingLineNumber = "1337"
+            endingLineNumber = "1337">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -476,13 +476,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "705"
-            endingLineNumber = "705"
-            landmarkName = "-processImage:"
-            landmarkType = "5">
+            startingLineNumber = "1044"
+            endingLineNumber = "1044">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -492,13 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "683"
-            endingLineNumber = "683"
-            landmarkName = "-processImage:"
-            landmarkType = "5">
+            startingLineNumber = "1060"
+            endingLineNumber = "1060">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -508,137 +504,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "681"
-            endingLineNumber = "681"
-            landmarkName = "-processImage:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "680"
-            endingLineNumber = "680"
-            landmarkName = "-processImage:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "964"
-            endingLineNumber = "964">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "644"
-            endingLineNumber = "644"
-            landmarkName = "-processImage:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "980"
-            endingLineNumber = "980">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "692"
-            endingLineNumber = "692"
-            landmarkName = "-processImage:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ViewController processImage:]"
-                  moduleName = "SudokuAppAR"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/satejmhatre/Dropbox/Other/GitHub%20Projects/SudokuAppAR/SudokuAppAR/ViewController.mm"
-                  timestampString = "473646196.250473"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "527"
-                  endingLineNumber = "527"
-                  offsetFromSymbolStart = "11995">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__31-[ViewController processImage:]_block_invoke124"
-                  moduleName = "SudokuAppAR"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/satejmhatre/Dropbox/Other/GitHub%20Projects/SudokuAppAR/SudokuAppAR/ViewController.mm"
-                  timestampString = "473646196.250718"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "527"
-                  endingLineNumber = "527"
-                  offsetFromSymbolStart = "18">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "757"
-            endingLineNumber = "757"
+            startingLineNumber = "837"
+            endingLineNumber = "837"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -648,13 +520,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "754"
-            endingLineNumber = "754"
+            startingLineNumber = "834"
+            endingLineNumber = "834"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -664,29 +536,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "752"
-            endingLineNumber = "752"
+            startingLineNumber = "832"
+            endingLineNumber = "832"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106010.206297"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "441"
-            endingLineNumber = "441"
-            landmarkName = "-processImage:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -696,13 +552,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "805"
-            endingLineNumber = "805"
+            startingLineNumber = "885"
+            endingLineNumber = "885"
             landmarkName = "-ToggleView:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -712,28 +568,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "808"
-            endingLineNumber = "808"
+            startingLineNumber = "888"
+            endingLineNumber = "888"
             landmarkName = "-TapToStartVid:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473665473.716771"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1143"
-            endingLineNumber = "1143"
-            landmarkName = "CheckPuzzle()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -744,13 +584,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/SudokuSolver.mm"
-            timestampString = "473665475.137258"
+            timestampString = "476243443.420796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1142"
-            endingLineNumber = "1142"
+            startingLineNumber = "1162"
+            endingLineNumber = "1162"
             landmarkName = "CheckPuzzle()"
-            landmarkType = "7">
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/SudokuSolver.mm"
+            timestampString = "476243443.420796"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1161"
+            endingLineNumber = "1161"
+            landmarkName = "CheckPuzzle()"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -766,7 +622,7 @@
             startingLineNumber = "31"
             endingLineNumber = "31"
             landmarkName = "-RealTimeSwitch:"
-            landmarkType = "4">
+            landmarkType = "6">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -808,11 +664,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1035"
-            endingLineNumber = "1035">
+            startingLineNumber = "1115"
+            endingLineNumber = "1115">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -822,13 +678,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "758"
-            endingLineNumber = "758"
+            startingLineNumber = "838"
+            endingLineNumber = "838"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -838,13 +694,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "762"
-            endingLineNumber = "762"
+            startingLineNumber = "842"
+            endingLineNumber = "842"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -854,13 +710,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "473848552.634301"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
             landmarkName = "-SolvedPuzzle:arrangedPts:corners:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -870,13 +726,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "759"
-            endingLineNumber = "759"
+            startingLineNumber = "839"
+            endingLineNumber = "839"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -886,13 +742,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "770"
-            endingLineNumber = "770"
+            startingLineNumber = "850"
+            endingLineNumber = "850"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -908,7 +764,7 @@
             startingLineNumber = "240"
             endingLineNumber = "240"
             landmarkName = "-processSampleImages:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -918,13 +774,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "473848552.634301"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "-processSampleImages:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -934,11 +790,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1040"
-            endingLineNumber = "1040">
+            startingLineNumber = "1120"
+            endingLineNumber = "1120">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -948,29 +804,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "724"
-            endingLineNumber = "724"
-            landmarkName = "-processImage:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106010.206297"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "467"
+            endingLineNumber = "467"
             landmarkName = "-displayDetectedGrid:arrangedPts:corners:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -980,13 +820,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106010.206297"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "471"
+            endingLineNumber = "471"
             landmarkName = "-SetLabTextOnDispatchQueue:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -996,13 +836,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106010.206297"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
+            startingLineNumber = "472"
+            endingLineNumber = "472"
             landmarkName = "-SetLabTextOnDispatchQueue:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1012,29 +852,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106010.206297"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
-            landmarkName = "-processImage:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "765"
-            endingLineNumber = "765"
+            startingLineNumber = "845"
+            endingLineNumber = "845"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1044,13 +868,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SudokuAppAR/ViewController.mm"
-            timestampString = "474106640.427644"
+            timestampString = "506717119.83984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "768"
-            endingLineNumber = "768"
+            startingLineNumber = "848"
+            endingLineNumber = "848"
             landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1066,7 +890,161 @@
             startingLineNumber = "224"
             endingLineNumber = "224"
             landmarkName = "sortThisMyWay(vector&lt;cv::Point&gt; points)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/ViewController.mm"
+            timestampString = "506717119.83984"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
+            landmarkName = "-findNearestIntersection:image:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ViewController findNearestIntersection:image:]"
+                  moduleName = "SudokuAppAR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/satejmhatre/Dropbox/UTA/Other/Projects/SudokuAppAR/SudokuAppAR/ViewController.mm"
+                  timestampString = "476242746.374898"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "377"
+                  endingLineNumber = "377"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[ViewController findNearestIntersection:image:]_block_invoke"
+                  moduleName = "SudokuAppAR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/satejmhatre/Dropbox/UTA/Other/Projects/SudokuAppAR/SudokuAppAR/ViewController.mm"
+                  timestampString = "476242746.375185"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "380"
+                  endingLineNumber = "380"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/ViewController.mm"
+            timestampString = "506717119.83984"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
+            landmarkName = "-processImage:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/ViewController.mm"
+            timestampString = "506717119.83984"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "429"
+            endingLineNumber = "429"
+            landmarkName = "-MakePuzzlePoints:image:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/ViewController.mm"
+            timestampString = "506717119.83984"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
+            landmarkName = "-findNearestIntersection:image:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ViewController findNearestIntersection:image:]"
+                  moduleName = "SudokuAppAR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/satejmhatre/Dropbox/UTA/Other/Projects/SudokuAppAR/SudokuAppAR/ViewController.mm"
+                  timestampString = "476242746.390289"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "377"
+                  endingLineNumber = "377"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[ViewController findNearestIntersection:image:]_block_invoke"
+                  moduleName = "SudokuAppAR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/satejmhatre/Dropbox/UTA/Other/Projects/SudokuAppAR/SudokuAppAR/ViewController.mm"
+                  timestampString = "476242746.390556"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "380"
+                  endingLineNumber = "380"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SudokuAppAR/ViewController.mm"
+            timestampString = "506717119.83984"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "397"
+            endingLineNumber = "397"
+            landmarkName = "-MakePuzzlePoints:image:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

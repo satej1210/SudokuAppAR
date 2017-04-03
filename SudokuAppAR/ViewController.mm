@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #include "SudokuSolver.h"
-#define SampleDigitsCount 5
+#define SampleDigitsCount 8
 using namespace cv;
 using namespace std;
 
@@ -242,12 +242,13 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
         cv::GaussianBlur(SampleImage[j], tmp, cv::Size(5,5), 5);
         cv::addWeighted(SampleImage[j], 1.5, tmp, -0.5, 0, SampleImage[j]);
         [tesseract setImage:[[UIImage imageWithCVMat:[self NormalizeImage:SampleImage[j]]] g8_blackAndWhite]];
+        tesseract.maximumRecognitionTime = 1;
         for(int i=0; i < 90; ++i)
         {
             
             if((i+1)%10!=0 || i==0)
             {
-                tesseract.rect = CGRectMake(CGFloat(SamplePoints[j][i].x+10+(cen[3].x-SamplePoints[j][i].x)/81), CGFloat(SamplePoints[j][i].y+10+(cen[3].x-SamplePoints[j][i].y)/81), 46, 46);
+                tesseract.rect = CGRectMake(CGFloat(SamplePoints[j][i].x+20+(cen[3].x-SamplePoints[j][i].x)/81), CGFloat(SamplePoints[j][i].y+15+(cen[3].x-SamplePoints[j][i].y)/81), 30, 40);
                 [tesseract recognize];
                 
                 a1 = [tesseract recognizedText];
@@ -270,6 +271,9 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
         }
         SampleDigits.push_back(puzzle);
     }
+}
+- (void)progressImageRecognitionForTesseract:(G8Tesseract *)tesseract {
+    NSLog(@"progress: %lu", (unsigned long)tesseract.progress);
 }
 -(vector<vector<cv::Point>>)FindSudokuMask:(cv::Mat&)mask img:(cv::Mat&)img largestIndex:(int&)largest_contour_index largestArea:(int&)largest_area
 {
@@ -345,15 +349,85 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
     newCen = sortThisMyWay(cen);
     return newCen;
 }
+-(cv::Point) computeIntersect:(cv::Vec2f) a b: (cv::Vec2f) b
+{
+    int x1 = a[0], y1 = a[1], x2 = a[2], y2 = a[3];
+    int x3 = b[0], y3 = b[1], x4 = b[2], y4 = b[3];
+    
+    if (float d = ((float)(x1-x2) * (y3-y4)) - ((y1-y2) * (x3-x4)))
+    {
+        cv::Point2f pt;
+        pt.x = ((x1*y2 - y1*x2) * (x3-x4) - (x1-x2) * (x3*y4 - y3*x4)) / d;
+        pt.y = ((x1*y2 - y1*x2) * (y3-y4) - (y1-y2) * (x3*y4 - y3*x4)) / d;
+        return pt;
+    }
+    else
+        return cv::Point(-1, -1);
+}
+-(cv::Point)findNearestIntersection:(cv::Point)point image:(cv::Mat&)img
+{
+    //    if (point.x>10 && point.y > 10) {
+    //
+    //        ROI = cv::Rect(point.x-10,point.y-10,100,100);
+    //
+    //    }
+    //    else ROI = cv::Rect(100,100,20,20);
+    //    imgPiece = img(ROI);
+    
+    
+    //point = cv::Point((point.x+2)*img.cols/270, (point.y+2)*img.rows/480);
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //[self.detectedGrid setImage:[UIImage imageWithCVMat:imgPiece]];
+        
+    });
+    return point;
+    
+}
 -(vector<cv::Point>)MakePuzzlePoints:(vector<cv::Point>)newCen image:(cv::Mat&)image
 {
+    Mat imgPiece = image;
+    cv::Rect ROI;
+    Canny(imgPiece, imgPiece, 50, 200);
+    vector<Vec2f>lines;
+    HoughLines(imgPiece, lines, 1, CV_PI/180, 150);
+    vector<cv::Point2f>pts;
+    cv::Point pt;
+    for (int i = 0; i < lines.size(); i++)
+    {
+        for (int j = i + 1; j < lines.size(); j++)
+        {
+            pt = [self computeIntersect:lines[i] b:lines[j]];
+            if (pt.x >= 0 && pt.y >= 0 && pt.x < image.cols && pt.y < image.rows)
+            {
+                pts.push_back(pt);
+            }
+        }
+    }
+    for( size_t i = 0; i < lines.size(); i++ )
+    {
+        float rho = lines[i][0], theta = lines[i][1];
+        cv::Point pt1, pt2;
+        double a = cos(theta), b = sin(theta);
+        double x0 = a*rho, y0 = b*rho;
+        pt1.x = cvRound(x0 + 1000*(-b));
+        pt1.y = cvRound(y0 + 1000*(a));
+        pt2.x = cvRound(x0 - 1000*(-b));
+        pt2.y = cvRound(y0 - 1000*(a));
+        line( image, pt1, pt2, Scalar(0,0,255), 3, CV_AA);
+    }
+    cout << pts;
     vector<cv::Point>arrangedPoints;
     for(int i=0; i<1; ++i)
     {
         arrangedPoints.push_back(newCen[i]);
         for (int j = 1; j < 9; ++j)
         {
-            arrangedPoints.push_back([self sectionFormula:newCen[i] Point2:newCen[i+1] Division:cv::Point(j, 9-j)]);
+            arrangedPoints.push_back([self findNearestIntersection:[self sectionFormula:newCen[i] Point2:newCen[i+1] Division:cv::Point(j, 9-j)] image:image]);
+            
+            
+            //arrangedPoints.push_back([self sectionFormula:newCen[i] Point2:newCen[i+1] Division:cv::Point(j, 9-j)] );
         }
         arrangedPoints.push_back(newCen[i+1]);
         for (int l = 0; l < 8; ++l)
@@ -363,7 +437,7 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
             cv::Point temp2 = [self sectionFormula:newCen[i+1] Point2:newCen[i+3] Division:cv::Point(1+l,8-l)];
             for (int j=1; j < 9; ++j)
             {
-                arrangedPoints.push_back([self sectionFormula:temp1 Point2:temp2 Division:cv::Point(j, 9-j)]);
+                arrangedPoints.push_back([self findNearestIntersection:[self sectionFormula:temp1 Point2:temp2 Division:cv::Point(j, 9-j)] image:image]);
             }
             arrangedPoints.push_back(temp2);
             
@@ -372,7 +446,7 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
         arrangedPoints.push_back(newCen[i+2]);
         for (int j = 1; j < 9; ++j)
         {
-            arrangedPoints.push_back([self sectionFormula:newCen[i+2] Point2:newCen[i+3] Division:cv::Point(j, 9-j)]);
+            arrangedPoints.push_back([self findNearestIntersection:[self sectionFormula:newCen[i+2] Point2:newCen[i+3] Division:cv::Point(j, 9-j)] image:image]);
         }
         arrangedPoints.push_back(newCen[i+3]);
     }
@@ -387,7 +461,7 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.detectedGrid setImage:[UIImage imageWithCGImage:CGImageCreateWithImageInRect([[UIImage imageWithCVMat:image] CGImage],
-                                                                                           CGRectMake(CGFloat(arrangedPoints[cellNum].x+10+(cen[3].x-arrangedPoints[cellNum].x)/81), CGFloat(arrangedPoints[cellNum].y+10+(cen[3].x-arrangedPoints[cellNum].y)/81), 46, 46))]];
+                                                                                           CGRectMake(CGFloat(arrangedPoints[cellNum].x+20+(cen[3].x-arrangedPoints[cellNum].x)/81), CGFloat(arrangedPoints[cellNum].y+15+(cen[3].x-arrangedPoints[cellNum].y)/81), 30, 40))]];
         //CGRectMake(CGFloat(arrangedPoints[cellNum].x+5+(arrangedPoints[cellNum+1].x-arrangedPoints[cellNum].x)/9), CGFloat(arrangedPoints[cellNum].y+5+(arrangedPoints[cellNum+1].y-arrangedPoints[cellNum].y)/9), (arrangedPoints[cellNum+1].x-arrangedPoints[cellNum].x-35),(arrangedPoints[cellNum+10].y-10-arrangedPoints[cellNum].y))) ]];
     });
     
@@ -413,16 +487,15 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
 - (void)processImage:(Mat&)image
 {
     
-    if (processingInQueue&&usingVideo) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.lab setText:[NSString stringWithFormat:@"Solving... Please Wait."]];
-        });
-    }
-    else{
-        
-        if ([[UIDevice currentDevice] orientation] == 1 ||
-            [[UIDevice currentDevice] orientation] == 5)
-        {
+    
+    
+    
+    if ([[UIDevice currentDevice] orientation] == 1 ||
+        [[UIDevice currentDevice] orientation] == 5)
+    {
+        if (!processingInQueue) {
+            
+            
             Mat img = image,  org = image.clone(), mask, res;
             int largest_area=0;
             int largest_contour_index=0;
@@ -430,6 +503,7 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
             cv::String a;
             vector<vector<cv::Point>> contours;
             vector<cv::Point> arrangedPoints, cen;
+            
             contours = [self FindSudokuMask:mask img:img largestIndex:largest_contour_index largestArea:largest_area];
             
             if (largest_area > 30000 && usingVideo && largest_area < 100000 )
@@ -485,8 +559,12 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
                                         arrangedPoints = [self MakePuzzlePoints:newCen image:image];
                                         
                                         [self DrawPoints:image pts:arrangedPoints];
-                                        
-                                        if (!processingInQueue) {
+                                        if (processingInQueue&&usingVideo) {
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                [self.lab setText:[NSString stringWithFormat:@"Solving... Please Wait."]];
+                                            });
+                                        }
+                                        else if (!processingInQueue) {
                                             
                                             if(AskToAim)
                                             {
@@ -538,9 +616,10 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
                                                                 }
                                                                 
                                                             }
+                                                            
+                                                            [self solve:NULL];
                                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                                 [self.textField setText:newPuzzleWithBreaks];
-                                                                [self solve:NULL];
                                                                 //  [self.lab setText:[NSString stringWithFormat:@"Confidence:%.2f", (float)(confidence / (Samples*81) * 100)]];
                                                             });
                                                             
@@ -660,54 +739,54 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
                                     }
                                     else{
                                         
+                                        
+                                        processingInQueue=1;
+                                        cv::Mat ip = image.clone();
+                                        SampleImage.push_back(ip);
+                                        SamplePoints.push_back(arrangedPoints);
+                                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                             
-                                            processingInQueue=1;
-                                            cv::Mat ip = image.clone();
-                                            SampleImage.push_back(ip);
-                                            SamplePoints.push_back(arrangedPoints);
-                                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                
-                                                [self processSampleImages:newCen];
-                                                NSString *puzzle=@"";
-                                                puzzle = [self bestGuessCalc];
-                                                
-                                                NSString *newPuzzleWithBreaks=@"";
-                                                for(int i=0; i<81; ++i)
+                                            [self processSampleImages:newCen];
+                                            NSString *puzzle=@"";
+                                            puzzle = [self bestGuessCalc];
+                                            
+                                            NSString *newPuzzleWithBreaks=@"";
+                                            for(int i=0; i<81; ++i)
+                                            {
+                                                newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:[puzzle substringWithRange:NSMakeRange(i, 1) ]];
+                                                if ((i+1)%9==0&&i!=0)
                                                 {
-                                                    newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:[puzzle substringWithRange:NSMakeRange(i, 1) ]];
-                                                    if ((i+1)%9==0&&i!=0)
-                                                    {
-                                                        newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:@"\n"];
-                                                    }
-                                                    
+                                                    newPuzzleWithBreaks=[newPuzzleWithBreaks stringByAppendingString:@"\n"];
                                                 }
-                                                //globalPuzzle = newPuzzleWithBreaks;
                                                 
-                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                    [self.textField setText:newPuzzleWithBreaks];
-                                                    
-                                                    [self solve:NULL];
-                                                    
-                                                    if (isSolved) {
-                                                        [lab setText:@"Puzzle Solved!"];
-                                                        AudioServicesPlaySystemSound(1352);
-                                                        if (!usingVideo) {
-                                                            cv::Mat p = cvMatFromUIImage(imageView.image);
-                                                            [self processImage:p];
-                                                        }
+                                            }
+                                            //globalPuzzle = newPuzzleWithBreaks;
+                                            
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                [self.textField setText:newPuzzleWithBreaks];
+                                                
+                                                [self solve:NULL];
+                                                
+                                                if (isSolved) {
+                                                    [lab setText:@"Puzzle Solved!"];
+                                                    AudioServicesPlaySystemSound(1352);
+                                                    if (!usingVideo) {
+                                                        cv::Mat p = cvMatFromUIImage(imageView.image);
+                                                        [self processImage:p];
                                                     }
-                                                    //  [self.lab setText:[NSString stringWithFormat:@"Confidence:%.2f", (float)(confidence / (Samples*81) * 100)]];
-                                                });
-                                                
-                                                
-                                                confidence = 0;
-                                                processingInQueue=0;
-                                                AskToAim=1;
-                                                SampleImage.clear();
-                                                SamplePoints.clear();
-                                                
-                                                
+                                                }
+                                                //  [self.lab setText:[NSString stringWithFormat:@"Confidence:%.2f", (float)(confidence / (Samples*81) * 100)]];
                                             });
+                                            
+                                            
+                                            confidence = 0;
+                                            processingInQueue=0;
+                                            AskToAim=1;
+                                            SampleImage.clear();
+                                            SamplePoints.clear();
+                                            
+                                            
+                                        });
                                     }
                                 }
                                 
@@ -717,18 +796,19 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
                     
                     
                 }
-            
+                
+            }
+            else
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.lab setText:[NSString stringWithFormat:@"Aim at Puzzle."]];
+                });
+                //                SampleImage.clear();
+                //                SampleDigits.clear();
+                //                SamplePoints.clear();
+            }
+            arrangedPoints.clear();
         }
-        else
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.lab setText:[NSString stringWithFormat:@"Aim at Puzzle."]];
-            });
-            //                SampleImage.clear();
-            //                SampleDigits.clear();
-            //                SamplePoints.clear();
-        }
-        arrangedPoints.clear();
     }
     else
     {
@@ -736,7 +816,7 @@ vector<cv::Point> sortThisMyWay(vector<cv::Point> points)
             [self.lab setText:[NSString stringWithFormat:@"Aim at Puzzle. And Keep Device Straight"]];
         });
     }
-}
+    
 }
 
 - (void)viewDidLoad {

@@ -26,16 +26,7 @@ bool* ReturnBoxPossibilities(int x, int i, int j);
 bool* ReturnRowPossibilities(int x, int i);
 bool* ReturnColPossibilities(int, int);
 int theMain();
-void  nakedpaircolumn(int x);
-void  nakedpairbox(int x, int y);
-void  nakedtriplerow(int x);
-void  nakedtriplecolumn(int x);
-void  nakedtriplebox(int x, int y);
-void  nakedquadrow(int x);
-void  nakedquadcolumn(int x);
-void  nakedquadbox(int x, int y);
-void  nakedpairrow(int x);
 class cellSudoku;
 char* getStringCompleted();
-class naked;
+
 #endif /* SudokuSolver_h */

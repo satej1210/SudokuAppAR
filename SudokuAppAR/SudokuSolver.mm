@@ -2,12 +2,12 @@
 //  main.cpp
 //  Sudoku
 //
-//  Created by Mudit Gupta on 6/20/15.
-//  Copyright (c) 2015 Mudit Gupta. All rights reserved.
+//  Created by Mudit Gupta and Satej Mhatre on 6/20/15.
+//  Copyright (c) 2015 Mudit Gupta and Satej Mhatre. All rights reserved.
 //
 
 #include <iostream>
-
+#include <stdlib.h>
 #include <vector>
 #include "SudokuSolver.h"
 
@@ -301,6 +301,8 @@ class naked
 {
 private:
     
+ 
+public:
     void static nakedpaircolumn(int x);
     void static nakedpairbox(int x, int y);
     void static nakedtriplerow(int x);
@@ -309,28 +311,45 @@ private:
     void static nakedquadrow(int x);
     void static nakedquadcolumn(int x);
     void static nakedquadbox(int x, int y);
-public:
-    
     void static nakedpairrow(int x);
     
     void static all()
     {
-        for(int i=1; i<=9; i++){nakedpairrow(i);};
+        try{for(int i=1; i<=9; i++){nakedpairrow(i);};
         for(int i=1; i<=9; i++){nakedpaircolumn(i);};
       
         cf2(nakedpairbox);
         for(int i=1; i<=9; i++){nakedtriplerow(i);};
         for(int i=1; i<=9; i++){nakedtriplecolumn(i);};
-        for(int i=1; i<=9; i++){nakedquadrow(i);};
-        for(int i=1; i<=9; i++){nakedquadcolumn(i);};
-    
-        
-        //        cf2(nakedtriplebox);
-        //        cf2(nakedquadbox);
+        for(int i=1; i<=9; i++){{nakedquadrow(i);}};
+            for(int i=1; i<=9; i++){nakedquadcolumn(i);};}
+        catch(...){cout << "whoopS";}
+//
+//        
+//                cf2(nakedtriplebox);
+//                cf2(nakedquadbox);
     }
     
 };
-
+void CheckForIncorrectPuzzles()
+{
+    for(int c=1; c <=9; ++c)
+    {
+    for(int i=1; i<=9; ++i)
+    {
+        for(int j=1; j<=9; j++)
+        {
+            if(sudoku[j-1][c-1].GetState()==i)
+            {
+                for(int k=0; k<9; k++)
+                    sudoku[k][c-1].possibilities[i-1]=false;
+                break;
+            }
+        }
+        
+    }
+    }
+}
 void naked::nakedquadrow(int RowNumber)
 {
     for(int Number1=1; Number1<=9; Number1++)
@@ -937,7 +956,7 @@ void CheckRow(int r) //actual row number. NOT INDEX.
             {
                 for(int k=0; k<9; k++)
                     sudoku[r-1][k].possibilities[i-1]=false;
-                break;
+                //break;
             }
         }
         
@@ -955,7 +974,7 @@ void CheckColumn(int c) //actual column number. NOT INDEX.
             {
                 for(int k=0; k<9; k++)
                     sudoku[k][c-1].possibilities[i-1]=false;
-                break;
+                //break;
             }
         }
         
